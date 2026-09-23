@@ -225,6 +225,130 @@
 .room-stage .orchid:focus-visible{
   filter:drop-shadow(0 0 9px rgba(237,216,184,.18))!important;
 }
+
+/* === v9 / precise room hit zones + clean visual layering === */
+.room-stage .wall,.room-stage .floor,.room-stage .ceiling-line{display:none!important}
+.room-stage .rug{display:none!important}
+
+/* Keep the painted room as the visible source of truth. */
+.room-stage .window,.room-stage .frame,.room-stage .clock,.room-stage .mirror,
+.room-stage .raven,.room-stage .cube,.room-stage .drawer,.room-stage .orchid{
+  background:transparent!important;
+  border-color:transparent!important;
+  box-shadow:none!important;
+}
+.room-stage .window .moon,
+.room-stage .mirror .mirror-glass,
+.room-stage .raven svg,
+.room-stage .cube .cube-glyph,
+.room-stage .orchid svg,
+.room-stage .ink-bottle{
+  display:none!important;
+}
+
+/* Precision hit zones, all tied to the 1672×941 background. */
+.room-stage .window{
+  left:2.6%!important;top:2.0%!important;width:16.7%!important;height:79.0%!important;
+  clip-path:polygon(3% 0,98% 0,96% 92%,78% 96%,4% 96%,0 8%)!important;
+  z-index:10!important
+}
+.room-stage .frame{
+  left:32.3%!important;top:11.6%!important;width:19.3%!important;height:39.6%!important;
+  clip-path:polygon(5% 3%,95% 3%,98% 10%,98% 92%,91% 98%,7% 98%,2% 91%,2% 10%)!important;
+  z-index:12!important
+}
+.room-stage .clock{
+  left:57.4%!important;right:auto!important;top:16.1%!important;width:11.8%!important;height:21.2%!important;
+  border-radius:50%!important;clip-path:circle(49% at 50% 50%)!important;z-index:17!important
+}
+.room-stage .mirror{
+  left:76.8%!important;right:auto!important;top:14.3%!important;width:13.8%!important;height:66.5%!important;
+  clip-path:polygon(39% 0,62% 1%,80% 7%,91% 16%,96% 30%,96% 80%,90% 91%,77% 98%,52% 100%,27% 98%,12% 91%,5% 80%,5% 31%,10% 17%,21% 7%)!important;
+  z-index:13!important
+}
+.room-stage .raven{
+  left:19.7%!important;top:49.3%!important;width:11.7%!important;height:19.6%!important;
+  clip-path:polygon(15% 42%,27% 19%,47% 4%,68% 7%,85% 23%,91% 47%,81% 66%,61% 77%,38% 91%,18% 84%,4% 62%)!important;
+  z-index:18!important
+}
+.room-stage .cube{
+  left:61.5%!important;top:43.2%!important;width:6.8%!important;height:8.5%!important;
+  clip-path:polygon(12% 6%,84% 6%,100% 22%,97% 88%,14% 92%,0 70%,2% 22%)!important;
+  z-index:27!important;pointer-events:auto!important
+}
+.room-stage .drawer{
+  left:51.8%!important;top:49.8%!important;bottom:auto!important;width:18.6%!important;height:25.7%!important;
+  clip-path:polygon(2% 0,98% 0,98% 93%,92% 100%,8% 100%,2% 94%)!important;
+  z-index:16!important
+}
+.room-stage .orchid{
+  left:auto!important;right:.7%!important;top:auto!important;bottom:.9%!important;width:17.2%!important;height:36.9%!important;
+  clip-path:polygon(28% 0,55% 2%,74% 13%,91% 33%,98% 59%,90% 78%,76% 91%,61% 100%,34% 97%,18% 88%,8% 70%,3% 50%,8% 27%)!important;
+  z-index:22!important
+}
+
+/* Terminal is a separate digital object embedded on the drawer front, away from ink/quill. */
+.room-stage .terminal{
+  left:57.2%!important;right:auto!important;top:53.8%!important;width:6.6%!important;height:4.5%!important;
+  z-index:31!important;pointer-events:auto!important;opacity:1!important;
+  clip-path:inset(0 round 4px)!important;
+  border:1px solid rgba(206,190,165,.24)!important;
+  border-radius:4px!important;
+  background:linear-gradient(180deg,rgba(20,19,18,.96),rgba(8,8,8,.94))!important;
+  box-shadow:0 5px 14px rgba(0,0,0,.38)!important;
+}
+.room-stage .terminal .terminal-screen{
+  opacity:1!important;display:grid!important;place-items:center!important;position:absolute!important;inset:10%!important;
+  border:1px solid rgba(162,148,129,.16)!important;
+  background:linear-gradient(180deg,rgba(25,25,23,.78),rgba(8,8,8,.88))!important;
+  color:#9a8e80!important;font:600 8px 'Courier New',monospace!important;letter-spacing:.12em!important;
+  text-shadow:0 0 8px rgba(229,216,198,.08)!important;
+}
+
+/* No black shadow on raven, no fake orchid drawing, no replacement mirror. */
+.shifted .room-stage .raven:before{opacity:0!important;background:none!important}
+.shifted .room-stage .raven svg{display:none!important}
+.shifted .room-stage .orchid svg{display:none!important}
+.corrected .room-stage .mirror .mirror-glass{display:none!important}
+
+/* Subtle, shape-aware hover only. */
+.room-stage .obj:before,.room-stage .orchid:before{
+  inset:0!important;border-radius:inherit!important;
+  background:rgba(244,225,193,.025)!important;
+  border:1px solid rgba(235,218,187,.0)!important;
+  box-shadow:none!important;
+}
+.room-stage .window:before,.room-stage .frame:before,.room-stage .mirror:before,
+.room-stage .raven:before,.room-stage .cube:before,.room-stage .drawer:before,.room-stage .orchid:before{
+  clip-path:inherit!important
+}
+.room-stage .clock:before{border-radius:50%!important}
+.room-stage .terminal:before{border-radius:4px!important}
+.room-stage .obj:hover:before,.room-stage .obj:focus-visible:before,
+.room-stage .orchid:hover:before,.room-stage .orchid:focus-visible:before{
+  opacity:.9!important;background:rgba(244,225,193,.045)!important;
+  border-color:rgba(239,223,195,.42)!important;
+}
+
+/* Preserve final restoration without covering the painted frame beforehand. */
+.restored .room-stage .frame .frame-art{
+  opacity:1!important;pointer-events:none!important;position:absolute!important;inset:10%!important;
+  background:radial-gradient(circle at 50% 38%,rgba(44,35,31,.76),rgba(13,12,11,.12) 62%)!important;
+  border:0!important;overflow:hidden!important
+}
+.restored .room-stage .frame .portrait{opacity:.88!important}
+.restored .room-stage .frame .portrait i{opacity:1!important;border-color:rgba(232,216,194,.66)!important}
+
+/* Drawer opening remains visible but does not replace the furniture. */
+.room-stage .drawer.open .drawer-slot{
+  opacity:.72!important;position:absolute!important;left:10%!important;right:10%!important;top:18%!important;height:22%!important;
+  transform:translateY(14px)!important;background:linear-gradient(180deg,rgba(4,4,4,.82),rgba(24,19,15,.72))!important;
+  border:1px solid rgba(213,195,165,.2)!important;box-shadow:0 -10px 20px rgba(0,0,0,.48)!important
+}
+.room-stage .drawer.open .drawer-handle{
+  opacity:.75!important;position:absolute!important;left:50%!important;top:29%!important;width:30px!important;height:6px!important;
+  transform:translate(-50%,14px)!important;border:1px solid rgba(190,170,140,.34)!important;border-radius:999px!important
+}
 </style>
 <style id="room-visual-v6">
 #room{display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:11px;padding:12px 22px 14px!important;background:radial-gradient(circle at 50% 42%,#151310 0,#080808 72%)!important}
@@ -293,7 +417,7 @@ function wheel(label,val,key){return `<div class="wheel"><span>${label}</span><b
 function panel(title,code,body,{dark=false,full=false}={}){$('#overlay').className=(dark?'dark ':'')+(full?'full ':'');$('#overlay').classList.remove('hidden');$('#panelTitle').textContent=title;$('#panelCode').textContent=code;$('#panelBody').innerHTML=body}
 function close(){$('#overlay').classList.add('hidden');$('#panelBody').innerHTML=''}
 function render(){if(S.access){$('#gate').classList.add('hidden');$('#archive').classList.remove('hidden')}else{$('#gate').classList.remove('hidden');$('#archive').classList.add('hidden')}
-const r=$('#room');r.classList.toggle('shifted',S.judgement);r.classList.toggle('corrected',S.collision);r.classList.toggle('restored',S.portrait);$('.drawer').classList.toggle('open',S.drawer);$('#terminalScreen').textContent=S.subject?'09.24':'_ _ . _ _';let h=S.subject&&!S.judgement?25:S.memory1?2:0,m=S.memory1?10:0;$('#roomHour').style.transform=`rotate(${((h%12)+(m/60))*30}deg)`;$('#roomMinute').style.transform=`rotate(${m*6}deg)`;
+const r=$('#room');r.classList.toggle('shifted',S.judgement);r.classList.toggle('corrected',S.collision);r.classList.toggle('restored',S.portrait);$('.drawer').classList.toggle('open',S.drawer);$('#terminalScreen').textContent=S.subject?'READY':'NODE';let h=S.subject&&!S.judgement?25:S.memory1?2:0,m=S.memory1?10:0;$('#roomHour').style.transform=`rotate(${((h%12)+(m/60))*30}deg)`;$('#roomMinute').style.transform=`rotate(${m*6}deg)`;
 const p=S.portrait?100:S.collision?82:S.four?68:S.mirror1?56:S.judgement?45:S.subject?31:S.drawer?22:S.memory1?12:4;$('#progressText').textContent=p+'%';$('#progressBar').style.height=p+'%';$('#statusText').textContent=S.portrait?'RESTORED':'ARCHIVE ONLINE';$('#statusDot').classList.toggle('ok',S.portrait);
 let t='THE CLOCK IS RESPONDING.',d='Paper record 08 contains the missing time.',open=false;if(S.memory1&&!S.drawer){t='SOMETHING OPENED IN THE DARK.';d='The drawer now accepts a time.'}if(S.drawer&&!S.subject){t='SUBJECT DATA IS STILL MISSING.';d='The terminal is waiting.'}if(S.subject&&!S.judgement){t='THE CLOCK SHOULD HAVE STOPPED.';d='But the archive clock does not reset at midnight.'}if(S.judgement&&!S.mirror1){t='THE ROOM IS WRONG.';d='Use the recovered coordinates with paper Archive 16. Then follow Archive 17.'}if(S.mirror1&&!S.four){t='THE REFLECTION POINTED BACKWARD.';d='Continue through paper records 18–20.'}if(S.four&&!S.collision){t='FOUR RECORDS. ONE COLLISION.';d='Paper record 22 identifies the wrong owner.';open=true}if(S.collision&&!S.routes){t='THE DATE WAS VALID. THE OWNER WAS NOT.';d='Paper Archive 23 changes what the number means.'}if(S.routes&&!S.portrait){t='ROUTING INDEX UPDATED.';d='Paper Archives 23–27 contain the remaining correction.'}if(S.portrait){t='THE PORTRAIT HAS RETURNED.';d='Open the frame.'}$('#promptTitle').textContent=t;$('#promptText').textContent=d;$('#memoryOpen').classList.toggle('hidden',!open)}
 function openClock(){if(S.judgement)return toast('CLOCK / FROZEN AFTER 25:00');let target=S.subject?[25,0]:[2,10],h=S.memory1?2:0,m=S.memory1?10:0;panel('ARCHIVE CLOCK','OBJECT 03',`<div class="clock-modal"><div id="modalClock">${clockHTML(h,m,'')}</div><div class="wheels">${wheel('HOUR',h,'h')}<span>:</span>${wheel('MIN',m,'m')}</div><button class="primary" id="setTime">SET TIME</button><p class="note">THE ARCHIVE CLOCK ACCEPTS HOURS BEYOND MIDNIGHT.</p></div>`,{dark:true});let vals={h,m};function upd(){ $('#hVal').textContent=String(vals.h).padStart(2,'0');$('#mVal').textContent=String(vals.m).padStart(2,'0');$('#modalClock').innerHTML=clockHTML(vals.h,vals.m,'') }$('#panelBody').onclick=e=>{let w=e.target.dataset.wheel;if(w){let [k,a]=w.split(':');if(k==='h')vals.h=a==='inc'?(vals.h+1)%26:(vals.h+25)%26;else vals.m=a==='inc'?(vals.m+1)%60:(vals.m+59)%60;upd()}if(e.target.id==='setTime'){if(vals.h===target[0]&&vals.m===target[1]){if(target[0]===2){save({memory1:true});toast('MEMORY 01 / RESTORED');close()}else openJudge()}else toast('TIME / NO RESPONSE')}}}
