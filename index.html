@@ -349,6 +349,97 @@
   opacity:.75!important;position:absolute!important;left:50%!important;top:29%!important;width:30px!important;height:6px!important;
   transform:translate(-50%,14px)!important;border:1px solid rgba(190,170,140,.34)!important;border-radius:999px!important
 }
+
+/* === v8 FINAL: precision hotspots + clean painted Room A === */
+.room-stage .wall,.room-stage .floor,.room-stage .ceiling-line{display:none!important}
+.room-stage .rug:after{display:none!important}
+.shifted .room-stage .rug:after{display:none!important}
+
+/* Background painting remains the visible room. The DOM objects are hit targets / state UI only. */
+.room-stage .window,.room-stage .frame,.room-stage .clock,.room-stage .mirror,.room-stage .raven,.room-stage .cube,.room-stage .drawer,.room-stage .orchid{
+  background:transparent!important;border-color:transparent!important;box-shadow:none!important
+}
+.room-stage .table{
+  position:absolute!important;inset:0!important;width:auto!important;height:auto!important;
+  border:0!important;background:none!important;box-shadow:none!important;
+  pointer-events:none!important;z-index:30!important
+}
+.room-stage .cube,.room-stage .terminal{pointer-events:auto!important}
+.room-stage .ink-bottle{display:none!important}
+
+/* Do not cover the painted raven/window/orchid/mirror with crude legacy drawings. */
+.room-stage .raven svg,.room-stage .orchid svg,.room-stage .window .moon,.room-stage .mirror .mirror-glass,.room-stage .cube .cube-glyph{display:none!important}
+.shifted .room-stage .raven svg,.shifted .room-stage .window .moon,.shifted .room-stage .ink-bottle{display:none!important}
+.shifted .room-stage .raven:before{opacity:0!important}
+
+/* exact hit regions mapped to the 1672×941 artwork */
+.room-stage .window{
+  left:3.45%!important;top:1.6%!important;width:16.45%!important;height:79.8%!important;z-index:10!important;
+  clip-path:polygon(2% 0,100% 0,100% 94%,13% 100%,0 91%,0 5%)!important
+}
+.room-stage .frame{
+  left:32.65%!important;top:13.2%!important;width:18.15%!important;height:37.6%!important;z-index:12!important;
+  clip-path:polygon(2% 5%,17% 0,83% 0,98% 5%,100% 95%,84% 100%,16% 100%,0 95%)!important
+}
+.room-stage .clock{
+  left:57.7%!important;right:auto!important;top:16.4%!important;width:10.8%!important;height:19.6%!important;z-index:17!important;
+  border-radius:50%!important;clip-path:circle(49% at 50% 50%)!important
+}
+.room-stage .mirror{
+  left:76.8%!important;right:auto!important;top:15.8%!important;width:13.1%!important;height:63.9%!important;z-index:13!important;
+  border-radius:49% 49% 44% 44%/34% 34% 53% 53%!important;
+  clip-path:ellipse(49% 50% at 50% 50%)!important
+}
+.room-stage .raven{
+  left:20.7%!important;top:50.3%!important;width:10.1%!important;height:17.1%!important;z-index:18!important;
+  clip-path:polygon(7% 43%,19% 22%,38% 4%,67% 0,94% 16%,100% 38%,88% 61%,68% 73%,63% 96%,35% 100%,23% 82%,0 76%)!important
+}
+.room-stage .cube{
+  left:61.75%!important;top:44.0%!important;width:6.15%!important;height:7.25%!important;z-index:32!important;
+  clip-path:polygon(14% 8%,77% 0,100% 25%,92% 93%,24% 100%,0 74%,0 24%)!important
+}
+/* Terminal is deliberately on the dresser front, separate from the ink/quill. */
+.room-stage .terminal{
+  left:54.15%!important;right:auto!important;top:52.15%!important;width:6.25%!important;height:4.9%!important;z-index:33!important;
+  opacity:1!important;border:1px solid rgba(206,190,165,.24)!important;border-radius:4px!important;
+  background:linear-gradient(180deg,rgba(20,19,18,.95),rgba(8,8,8,.92))!important;
+  box-shadow:0 5px 14px rgba(0,0,0,.38)!important;clip-path:inset(0 round 4px)!important
+}
+.room-stage .terminal .terminal-screen{
+  opacity:1!important;pointer-events:none!important;position:absolute!important;inset:10%!important;
+  display:grid!important;place-items:center!important;border:1px solid rgba(162,148,129,.16)!important;
+  background:linear-gradient(180deg,rgba(25,25,23,.78),rgba(8,8,8,.88))!important;color:#9a8e80!important;
+  font:600 8px 'Courier New',monospace!important;letter-spacing:.12em!important;text-transform:uppercase!important;
+  text-shadow:0 0 8px rgba(229,216,198,.08)!important
+}
+.room-stage .drawer{
+  left:52.25%!important;top:50.1%!important;bottom:auto!important;width:17.85%!important;height:24.6%!important;z-index:16!important;
+  clip-path:polygon(2% 0,98% 0,100% 96%,95% 100%,5% 100%,0 96%)!important
+}
+.room-stage .orchid{
+  left:84.65%!important;right:auto!important;top:57.2%!important;bottom:auto!important;width:15.3%!important;height:37.6%!important;z-index:22!important;
+  clip-path:polygon(29% 0,51% 3%,68% 0,83% 9%,94% 24%,100% 44%,87% 59%,82% 100%,28% 100%,25% 61%,4% 54%,0 33%,10% 17%)!important
+}
+
+/* small, shape-following hover cue instead of giant boxes */
+.room-stage .obj:before,.room-stage .orchid:before{
+  content:""!important;position:absolute!important;inset:0!important;
+  border:1px solid rgba(236,221,197,.22)!important;
+  background:rgba(238,217,181,.045)!important;
+  box-shadow:inset 0 0 18px rgba(242,222,187,.06)!important;
+  opacity:0!important;pointer-events:none!important
+}
+.room-stage .obj:hover:before,.room-stage .obj:focus-visible:before,
+.room-stage .orchid:hover:before,.room-stage .orchid:focus-visible:before{opacity:1!important}
+.room-stage .clock:before{border-radius:50%!important}
+.room-stage .mirror:before{border-radius:49% 49% 44% 44%/34% 34% 53% 53%!important}
+.room-stage .terminal:before{border-radius:4px!important}
+.room-stage .cube:before,.room-stage .raven:before,.room-stage .orchid:before,
+.room-stage .window:before,.room-stage .frame:before,.room-stage .drawer:before{border-radius:0!important}
+
+/* no ugly state overlays; keep the room legible */
+.shifted .room-stage .orchid:before{opacity:0!important}
+.corrected .room-stage .mirror:before{opacity:0!important}
 </style>
 <style id="room-visual-v6">
 #room{display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:11px;padding:12px 22px 14px!important;background:radial-gradient(circle at 50% 42%,#151310 0,#080808 72%)!important}
@@ -396,7 +487,7 @@
 <button class="obj clock" data-obj="clock" aria-label="CLOCK"><div class="clock-face"><i class="hand hour" id="roomHour"></i><i class="hand minute" id="roomMinute"></i><span class="pin"></span><b class="n12">12</b><b class="n3">3</b><b class="n6">6</b><b class="n9">9</b></div><span class="tag">CLOCK</span></button>
 <button class="obj mirror" data-obj="mirror" aria-label="MIRROR"><div class="mirror-glass"><i></i><i></i><i></i></div><span class="tag">MIRROR</span></button>
 <button class="obj raven" data-obj="raven" aria-label="RAVEN"><svg viewBox="0 0 160 120"><path d="M27 79C45 48 69 34 98 39c11-16 24-20 37-14-8 8-10 15-6 23 13 11 13 29-1 40-19 16-55 12-77 3L35 108l4-21z"/><circle cx="112" cy="43" r="2.5" fill="#cfc8bf"/></svg><span class="tag">RAVEN</span></button>
-<div class="table"><button class="obj cube" data-obj="cube" aria-label="CUBE"><div class="cube-glyph"><i class="t"></i><i class="l"></i><i class="r"></i></div><span class="tag">CUBE</span></button><span class="ink-bottle"></span><button class="obj terminal" data-obj="terminal" aria-label="INK / TERMINAL"><div class="terminal-screen" id="terminalScreen">_ _ . _ _</div><span class="tag">TERMINAL</span></button></div>
+<div class="table"><button class="obj cube" data-obj="cube" aria-label="CUBE"><div class="cube-glyph"><i class="t"></i><i class="l"></i><i class="r"></i></div><span class="tag">CUBE</span></button><span class="ink-bottle"></span><button class="obj terminal" data-obj="terminal" aria-label="TERMINAL"><div class="terminal-screen" id="terminalScreen">_ _ . _ _</div><span class="tag">TERMINAL</span></button></div>
 <div class="rug"></div>
 <button class="orchid" data-obj="orchid" aria-label="ORCHID"><svg viewBox="0 0 80 120"><path d="M40 112V46M40 66C28 58 18 59 11 69M40 80c12-10 23-9 31 0" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="40" cy="37" r="7" fill="none" stroke="currentColor"/><circle cx="31" cy="34" r="7" fill="none" stroke="currentColor"/><circle cx="49" cy="31" r="7" fill="none" stroke="currentColor"/><path class="leaf-extra" d="M40 91c-10-5-18-2-23 3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M22 109h36l-5 10H27z" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
 <button class="obj drawer" data-obj="drawer" aria-label="DRAWER"><span class="drawer-slot"></span><span class="drawer-handle"></span><span class="tag">DRAWER</span></button>
