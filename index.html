@@ -539,6 +539,74 @@
   .final{grid-template-columns:1fr!important;padding:2vh 4vw!important}.final-portrait{min-height:38vh}.kanade-portrait{max-height:38vh}.final-copy h2{font-size:13vw!important}
   .coord-card b{white-space:normal!important;font-size:26px!important}
 }
+
+/* === v10 / exploratory room + persistent evidence === */
+.drawer-modal{
+  display:flex!important;flex-direction:column!important;align-items:center!important;text-align:center!important
+}
+.drawer-modal .drawer-plate{margin:22px auto 34px!important}
+.drawer-modal .wheels{
+  width:min(600px,100%)!important;margin:0 auto 20px!important;
+  display:flex!important;justify-content:center!important;align-items:center!important;gap:24px!important
+}
+.drawer-modal .wheel{flex:0 1 250px!important;max-width:250px!important}
+.drawer-modal .wheels>span{flex:0 0 auto!important}
+.drawer-modal>.primary{display:block!important;margin:0 auto!important;min-width:200px!important}
+.lock-readout{
+  margin:0 auto 22px;padding:13px 18px;border:1px solid rgba(216,200,176,.15);
+  border-radius:999px;color:#a59b90;font:9px ui-monospace,monospace;letter-spacing:.18em
+}
+
+.prompt-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.prompt-actions button{
+  border:1px solid rgba(216,200,176,.15);border-radius:999px;background:rgba(255,255,255,.025);
+  color:#91887e;padding:8px 10px;font-size:7px;letter-spacing:.13em;white-space:nowrap
+}
+.prompt-actions button:hover{border-color:rgba(222,207,184,.34);color:#d6ccc0}
+
+.evidence-view{display:grid;gap:22px;max-width:620px;margin:0 auto}
+.evidence-hero{
+  min-height:250px;border:1px solid rgba(216,200,176,.14);border-radius:18px;
+  display:grid;place-items:center;position:relative;overflow:hidden;
+  background:radial-gradient(circle at 50% 40%,rgba(148,120,129,.10),transparent 48%),rgba(255,255,255,.012)
+}
+.evidence-hero:before{content:"";position:absolute;inset:18px;border:1px solid rgba(216,200,176,.06);border-radius:12px}
+.evidence-symbol{font:400 clamp(48px,9vw,100px) Georgia,serif;color:#8f867d;position:relative}
+.evidence-copy{border-top:1px solid rgba(216,200,176,.12);padding-top:18px}
+.evidence-copy small{display:block;font:7px ui-monospace,monospace;letter-spacing:.18em;color:#746d66;margin-bottom:9px}
+.evidence-copy h3{font:400 30px/1.05 Georgia,serif;margin:0 0 11px;color:#e0d6ca}
+.evidence-copy p{font-size:9px;line-height:1.7;letter-spacing:.08em;color:#817970;margin:0}
+
+.judgement-record{
+  max-width:610px;margin:0 auto;display:grid;gap:20px;text-align:center
+}
+.judgement-record .record-code{
+  border:1px solid rgba(224,210,187,.18);border-radius:18px;padding:34px 24px;
+  background:radial-gradient(circle at 50% 0%,rgba(139,111,118,.10),transparent 45%),rgba(255,255,255,.015)
+}
+.judgement-record .record-code small{display:block;font:7px ui-monospace,monospace;letter-spacing:.2em;color:#837a71;margin-bottom:14px}
+.judgement-record .record-code b{display:block;font:400 clamp(29px,5vw,48px) Georgia,serif;letter-spacing:.055em;color:#eee4d8}
+.judgement-record .record-code p{font:8px ui-monospace,monospace;letter-spacing:.15em;color:#817970;margin:15px 0 0}
+.judgement-record .primary{justify-self:center}
+
+.room-stage .ink{
+  left:55.1%!important;top:42.7%!important;width:4.1%!important;height:8.5%!important;
+  z-index:35!important;pointer-events:auto!important;clip-path:polygon(20% 0,76% 0,100% 34%,84% 100%,11% 100%,0 35%)!important
+}
+.room-stage .ink:before{border-radius:30% 30% 18% 18%!important}
+.room-stage .rug{
+  pointer-events:auto!important;z-index:9!important;
+  left:22.3%!important;top:75.7%!important;width:59.8%!important;height:21.7%!important;
+  border:0!important;background:transparent!important;transform:none!important;
+  clip-path:polygon(10% 2%,89% 0,100% 78%,92% 100%,8% 100%,0 77%)!important
+}
+.room-stage .rug:before{border-radius:6px!important}
+
+@media(max-width:760px){
+  .drawer-modal .wheels{gap:8px!important}.drawer-modal .wheel{min-width:0!important}
+  .prompt-actions{grid-column:2/3;grid-row:1/3;max-width:145px}
+  .prompt-actions button{white-space:normal}
+}
 </style>
 <style id="room-visual-v6">
 #room{display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:11px;padding:12px 22px 14px!important;background:radial-gradient(circle at 50% 42%,#151310 0,#080808 72%)!important}
@@ -586,11 +654,11 @@
 <button class="obj clock" data-obj="clock" aria-label="CLOCK"><div class="clock-face"><i class="hand hour" id="roomHour"></i><i class="hand minute" id="roomMinute"></i><span class="pin"></span><b class="n12">12</b><b class="n3">3</b><b class="n6">6</b><b class="n9">9</b></div><span class="tag">CLOCK</span></button>
 <button class="obj mirror" data-obj="mirror" aria-label="MIRROR"><div class="mirror-glass"><i></i><i></i><i></i></div><span class="tag">MIRROR</span></button>
 <button class="obj raven" data-obj="raven" aria-label="RAVEN"><svg viewBox="0 0 160 120"><path d="M27 79C45 48 69 34 98 39c11-16 24-20 37-14-8 8-10 15-6 23 13 11 13 29-1 40-19 16-55 12-77 3L35 108l4-21z"/><circle cx="112" cy="43" r="2.5" fill="#cfc8bf"/></svg><span class="tag">RAVEN</span></button>
-<div class="table"><button class="obj cube" data-obj="cube" aria-label="CUBE"><div class="cube-glyph"><i class="t"></i><i class="l"></i><i class="r"></i></div><span class="tag">CUBE</span></button><span class="ink-bottle"></span><button class="obj terminal" data-obj="terminal" aria-label="TERMINAL"><div class="terminal-screen" id="terminalScreen">_ _ . _ _</div><span class="tag">TERMINAL</span></button></div>
-<div class="rug"></div>
+<div class="table"><button class="obj ink" data-obj="ink" aria-label="INK"><span class="tag">INK</span></button><button class="obj cube" data-obj="cube" aria-label="CUBE"><div class="cube-glyph"><i class="t"></i><i class="l"></i><i class="r"></i></div><span class="tag">CUBE</span></button><span class="ink-bottle"></span><button class="obj terminal" data-obj="terminal" aria-label="TERMINAL"><div class="terminal-screen" id="terminalScreen">_ _ . _ _</div><span class="tag">TERMINAL</span></button></div>
+<button class="obj rug" data-obj="rug" aria-label="RUG"><span class="tag">RUG</span></button>
 <button class="orchid" data-obj="orchid" aria-label="ORCHID"><svg viewBox="0 0 80 120"><path d="M40 112V46M40 66C28 58 18 59 11 69M40 80c12-10 23-9 31 0" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="40" cy="37" r="7" fill="none" stroke="currentColor"/><circle cx="31" cy="34" r="7" fill="none" stroke="currentColor"/><circle cx="49" cy="31" r="7" fill="none" stroke="currentColor"/><path class="leaf-extra" d="M40 91c-10-5-18-2-23 3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M22 109h36l-5 10H27z" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
 <button class="obj drawer" data-obj="drawer" aria-label="DRAWER"><span class="drawer-slot"></span><span class="drawer-handle"></span><span class="tag">DRAWER</span></button>
-</div><div id="prompt"><span class="eyebrow">ROOM A / LIVE</span><h2 id="promptTitle">THE CLOCK IS RESPONDING.</h2><p id="promptText">Paper record 08 contains the missing time.</p><button id="memoryOpen" class="hidden">OPEN MEMORY STACK</button></div><div class="progress"><span id="progressText">04%</span><div><i id="progressBar" style="height:4%"></i></div></div><div id="toast"></div></section></main>
+</div><div id="prompt"><span class="eyebrow">ROOM A / LIVE</span><h2 id="promptTitle">THE CLOCK IS RESPONDING.</h2><p id="promptText">Paper record 08 contains the missing time.</p><div class="prompt-actions"><button id="evidenceOpen" class="hidden">VIEW COORDINATES</button><button id="memoryOpen" class="hidden">OPEN MEMORY STACK</button></div></div><div class="progress"><span id="progressText">04%</span><div><i id="progressBar" style="height:4%"></i></div></div><div id="toast"></div></section></main>
 <div id="overlay" class="hidden"><div id="backdrop"></div><section id="panel"><header class="panel-head"><span id="panelCode"></span><h2 id="panelTitle"></h2><button id="panelClose">CLOSE ×</button></header><div class="panel-body" id="panelBody"></div></section></div>
 <script>
 (()=>{
@@ -610,20 +678,117 @@ function close(){$('#overlay').classList.add('hidden');$('#panelBody').innerHTML
 function render(){if(S.access){$('#gate').classList.add('hidden');$('#archive').classList.remove('hidden')}else{$('#gate').classList.remove('hidden');$('#archive').classList.add('hidden')}
 const r=$('#room');r.classList.toggle('shifted',S.judgement);r.classList.toggle('corrected',S.collision);r.classList.toggle('restored',S.portrait);$('.drawer').classList.toggle('open',S.drawer);$('#terminalScreen').textContent=S.subject?'READY':'NODE';let h=S.subject&&!S.judgement?25:S.memory1?2:0,m=S.memory1?10:0;$('#roomHour').style.transform=`rotate(${((h%12)+(m/60))*30}deg)`;$('#roomMinute').style.transform=`rotate(${m*6}deg)`;
 const p=S.portrait?100:S.collision?82:S.four?68:S.mirror1?56:S.judgement?45:S.subject?31:S.drawer?22:S.memory1?12:4;$('#progressText').textContent=p+'%';$('#progressBar').style.height=p+'%';$('#statusText').textContent=S.portrait?'RESTORED':'ARCHIVE ONLINE';$('#statusDot').classList.toggle('ok',S.portrait);
-let t='THE CLOCK IS RESPONDING.',d='Paper record 08 contains the missing time.',open=false;if(S.memory1&&!S.drawer){t='SOMETHING OPENED IN THE DARK.';d='The drawer now accepts a time.'}if(S.drawer&&!S.subject){t='SUBJECT DATA IS STILL MISSING.';d='The terminal is waiting.'}if(S.subject&&!S.judgement){t='THE CLOCK SHOULD HAVE STOPPED.';d='But the archive clock does not reset at midnight.'}if(S.judgement&&!S.mirror1){t='THE ROOM IS WRONG.';d='Use the recovered coordinates with paper Archive 16. Then follow Archive 17.'}if(S.mirror1&&!S.four){t='THE REFLECTION POINTED BACKWARD.';d='Continue through paper records 18–20.'}if(S.four&&!S.collision){t='FOUR RECORDS. ONE COLLISION.';d='Paper record 22 identifies the wrong owner.';open=true}if(S.collision&&!S.routes){t='THE DATE WAS VALID. THE OWNER WAS NOT.';d='Paper Archive 23 changes what the number means.'}if(S.routes&&!S.portrait){t='ROUTING INDEX UPDATED.';d='Paper Archives 23–27 contain the remaining correction.'}if(S.portrait){t='THE PORTRAIT HAS RETURNED.';d='Open the frame.'}$('#promptTitle').textContent=t;$('#promptText').textContent=d;$('#memoryOpen').classList.toggle('hidden',!open)}
-function openClock(){if(S.judgement)return toast('CLOCK / FROZEN AFTER 25:00');let target=S.subject?[25,0]:[2,10],h=S.memory1?2:0,m=S.memory1?10:0;panel('ARCHIVE CLOCK','OBJECT 03',`<div class="clock-modal"><div id="modalClock">${clockHTML(h,m,'')}</div><div class="wheels">${wheel('HOUR',h,'h')}<span>:</span>${wheel('MIN',m,'m')}</div><button class="primary" id="setTime">SET TIME</button><p class="note">THE ARCHIVE CLOCK ACCEPTS HOURS BEYOND MIDNIGHT.</p></div>`,{dark:true});let vals={h,m};function upd(){ $('#hVal').textContent=String(vals.h).padStart(2,'0');$('#mVal').textContent=String(vals.m).padStart(2,'0');$('#modalClock').innerHTML=clockHTML(vals.h,vals.m,'') }$('#panelBody').onclick=e=>{let w=e.target.dataset.wheel;if(w){let [k,a]=w.split(':');if(k==='h')vals.h=a==='inc'?(vals.h+1)%26:(vals.h+25)%26;else vals.m=a==='inc'?(vals.m+1)%60:(vals.m+59)%60;upd()}if(e.target.id==='setTime'){if(vals.h===target[0]&&vals.m===target[1]){if(target[0]===2){save({memory1:true});restoreFX('MEMORY 01 / RESTORED');toast('MEMORY 01 / RESTORED');close()}else openJudge()}else toast('TIME / NO RESPONSE')}}}
-function openDrawer(){if(!S.memory1)return toast('DRAWER / NO RESPONSE');if(S.drawer){return panel('DRAWER / OPEN','OBJECT 06',`<div class="drawer-modal"><div class="drawer-plate"><i></i></div><p class="note">CONTACT SHEET REMOVED FROM DIGITAL STORAGE.<br>PHYSICAL EVIDENCE AVAILABLE / PAPER ARCHIVE 12.</p></div>`)}let h=0,m=0;panel('MECHANICAL DRAWER','OBJECT 06',`<div class="drawer-modal"><div class="drawer-plate"><i></i></div><div class="wheels">${wheel('HOUR',h,'h')}<span>:</span>${wheel('MIN',m,'m')}</div><button class="primary" id="unlockDrawer">TURN THE LOCK</button></div>`);let vals={h,m};$('#panelBody').onclick=e=>{let w=e.target.dataset.wheel;if(w){let[k,a]=w.split(':');if(k==='h')vals.h=a==='inc'?(vals.h+1)%26:(vals.h+25)%26;else vals.m=a==='inc'?(vals.m+1)%60:(vals.m+59)%60;$('#hVal').textContent=String(vals.h).padStart(2,'0');$('#mVal').textContent=String(vals.m).padStart(2,'0')}if(e.target.id==='unlockDrawer'){if(vals.h===4&&vals.m===11){save({drawer:true});restoreFX('DRAWER / RESTORED');toast('DRAWER / UNSEALED');close()}else toast('LOCK / NO RESPONSE')}}}
-function openTerminal(){if(!S.drawer)return toast('TERMINAL / LOCKED');let final=S.routes&&!S.portrait;panel('ARCHIVE TERMINAL','NODE / SUBJECT',`<div class="term-log"><span>NODE 09.24 ONLINE</span><span>${S.subject?'SUBJECT INDEX READY':'SUBJECT INDEX MISSING'}</span>${S.routes?'<span>ROUTE TABLE RECOVERED</span><span>RESTORATION QUESTION ACTIVE</span>':''}</div><form class="term-form" id="termForm"><label>${final?'WHAT WAS MISSING?':'SUBJECT DATE'}</label><div class="term-control"><input id="termInput" autofocus placeholder="${final?'_ _ _ _ _ _ _ _':'00.00'}"/><button>EXECUTE ↗</button></div></form>`);$('#termForm').onsubmit=e=>{e.preventDefault();let n=norm($('#termInput').value);if(!S.subject&&n==='0924'){save({subject:true});restoreFX('SUBJECT / RESTORED');toast('SUBJECT / FOUND');close()}else if(final&&n==='PORTRAIT'){save({portrait:true});restoreFX('PORTRAIT / RESTORED');setTimeout(openFinal,260)}else toast(final?'RESTORATION / INCOMPLETE':'SUBJECT / NOT FOUND')}}
-function openJudge(){panel('JUDGEMENT','ORIENTATION FAILURE',`<div class="judge"><div class="judge-line"></div><button class="jnote up" data-dir="↑">↑</button><button class="jnote right" data-dir="→">→</button><button class="jnote down" data-dir="↓">↓</button><button class="jnote left" data-dir="←">←</button><div class="seq"><i></i><i></i><i></i><i></i></div><p>THE LINE DOES NOT MOVE.<br>THE WORLD DOES.</p><div class="coord-card" id="coordCard"><span>COORDINATES / RECOVERED</span><b>B7 / C2 / B3 / D1 / A8 / A10 / C5</b><small>USE WITH PAPER ARCHIVE 16</small><button id="judgeContinue">CONTINUE TO ROOM A</button></div></div>`,{dark:true});let exp=['↑','→','↓','←'],seq=[],solved=false;$('#panelBody').onclick=e=>{if(e.target.id==='judgeContinue'){close();return}if(solved)return;let d=e.target.dataset.dir;if(!d)return;seq.push(d);if(exp.slice(0,seq.length).some((x,i)=>x!==seq[i])){seq=[];toast('JUDGEMENT / RESET')}$$('.seq i').forEach((x,i)=>x.classList.toggle('hit',!!seq[i]));if(seq.length===4){solved=true;save({judgement:true});restoreFX('COORDINATES / RECOVERED');toast('COORDINATES / RECOVERED');$('.judge').classList.add('solved');$('#coordCard').classList.add('revealed')}}}
-function openMirror(){if(!S.judgement)return toast('REFLECTION / INACTIVE');if(!S.mirror1){save({mirror1:true});restoreFX('REFLECTION / RESTORED');return panel('REFLECTION','OBJECT 05',`<div class="mirror-modal"><div class="glass"><span>ARCHIVE 18</span></div><p>THE REFLECTION DOES NOT POINT FORWARD.</p></div>`,{dark:true})}if(!S.routes)return toast('REFLECTION / NO NEW DATA');panel('REFLECTION / ROUTING','OBJECT 05',`<div class="route"><p>NOT DATES.</p><h3>ROUTES.</h3><div class="route-list"><span>02<i></i>10</span><span>04<i></i>11</span><span>09<i></i>24</span><span>25<i></i>00</span></div><small>PAPER ARCHIVES 25–26 HOLD THE EXTRACTION.</small></div>`,{dark:true})}
-function openCube(){if(!S.mirror1)return toast('OBJECT / DORMANT');let faces=[['◉','EYE'],['◆','RAVEN'],['▭','FRAME'],['◷','CLOCK']],idx=0;panel('BLACK CUBE','OBJECT 04',`<div class="cube-modal"><button class="cube-stage" id="spinCube"><div class="cube3d"><span id="faceGlyph">${faces[0][0]}</span></div></button><div class="face-log">FACE <span id="faceNum">1</span>/4 <b id="faceName">EYE</b></div><p>THE ORDER LIVES HERE.<br>THE LETTERS DO NOT.</p><form class="cube-form" id="cubeForm"><input id="cubeAnswer" placeholder="READ THE FOUR FACES"/><button>UNSEAL</button></form></div>`,{dark:true});$('#spinCube').onclick=()=>{idx=(idx+1)%4;$('#faceGlyph').textContent=faces[idx][0];$('#faceNum').textContent=idx+1;$('#faceName').textContent=faces[idx][1]};$('#cubeForm').onsubmit=e=>{e.preventDefault();if(norm($('#cubeAnswer').value)==='FOUR'){save({four:true});restoreFX('MEMORY STACK / RESTORED');toast('MEMORY STACK / RECOVERED');openMemories()}else toast('CUBE / UNREADABLE')}}
+let t='THE CLOCK IS RESPONDING.',d='Paper record 08 contains the missing time.',open=false;if(S.memory1&&!S.drawer){t='SOMETHING OPENED IN THE DARK.';d='The drawer now accepts a time.'}if(S.drawer&&!S.subject){t='SUBJECT DATA IS STILL MISSING.';d='The terminal is waiting.'}if(S.subject&&!S.judgement){t='THE CLOCK SHOULD HAVE STOPPED.';d='But the archive clock does not reset at midnight.'}if(S.judgement&&!S.mirror1){t='THE ROOM IS WRONG.';d='Use the recovered coordinates with paper Archive 16. Then follow Archive 17.'}if(S.mirror1&&!S.four){t='THE REFLECTION POINTED BACKWARD.';d='Continue through paper records 18–20.'}if(S.four&&!S.collision){t='FOUR RECORDS. ONE COLLISION.';d='Paper record 22 identifies the wrong owner.';open=true}if(S.collision&&!S.routes){t='THE DATE WAS VALID. THE OWNER WAS NOT.';d='Paper Archive 23 changes what the number means.'}if(S.routes&&!S.portrait){t='ROUTING INDEX UPDATED.';d='Paper Archives 23–27 contain the remaining correction.'}if(S.portrait){t='THE PORTRAIT HAS RETURNED.';d='Open the frame.'}$('#promptTitle').textContent=t;$('#promptText').textContent=d;$('#memoryOpen').classList.toggle('hidden',!open);$('#evidenceOpen').classList.toggle('hidden',!S.judgement)}
+function openClock(){
+  if(S.judgement){
+    panel('ARCHIVE CLOCK','OBJECT 03',`<div class="clock-modal"><div id="modalClock">${clockHTML(25,0,'')}</div><div class="evidence-copy"><small>STATE / FROZEN</small><h3>25:00</h3><p>THE ARCHIVE CLOCK STOPPED ONLY AFTER JUDGEMENT COMPLETED.</p></div><button class="primary" id="viewJudgement">OPEN JUDGEMENT RECORD</button></div>`,{dark:true});
+    $('#viewJudgement').onclick=openJudge;
+    return
+  }
+  let target=S.subject?[25,0]:[2,10],h=S.memory1?2:0,m=S.memory1?10:0;
+  panel('ARCHIVE CLOCK','OBJECT 03',`<div class="clock-modal"><div id="modalClock">${clockHTML(h,m,'')}</div><div class="wheels">${wheel('HOUR',h,'h')}<span>:</span>${wheel('MIN',m,'m')}</div><button class="primary" id="setTime">SET TIME</button><p class="note">THE ARCHIVE CLOCK ACCEPTS HOURS BEYOND MIDNIGHT.</p></div>`,{dark:true});
+  let vals={h,m};
+  function upd(){ $('#hVal').textContent=String(vals.h).padStart(2,'0');$('#mVal').textContent=String(vals.m).padStart(2,'0');$('#modalClock').innerHTML=clockHTML(vals.h,vals.m,'') }
+  $('#panelBody').onclick=e=>{
+    let w=e.target.dataset.wheel;
+    if(w){let [k,a]=w.split(':');if(k==='h')vals.h=a==='inc'?(vals.h+1)%26:(vals.h+25)%26;else vals.m=a==='inc'?(vals.m+1)%60:(vals.m+59)%60;upd()}
+    if(e.target.id==='setTime'){
+      if(vals.h===target[0]&&vals.m===target[1]){
+        if(target[0]===2){save({memory1:true});restoreFX('MEMORY 01 / RESTORED');toast('MEMORY 01 / RESTORED');close()}
+        else openJudge()
+      }else toast('TIME / NO RESPONSE')
+    }
+  }
+}
+function openDrawer(){
+  if(S.drawer){
+    return panel('DRAWER / OPEN','OBJECT 06',`<div class="drawer-modal"><div class="drawer-plate"><i></i></div><div class="lock-readout">LOCK RECORD / 04 : 11</div><p class="note">CONTACT SHEET REMOVED FROM DIGITAL STORAGE.<br>PHYSICAL EVIDENCE AVAILABLE / PAPER ARCHIVE 12.</p></div>`,{dark:true})
+  }
+  let h=0,m=0;
+  panel('MECHANICAL DRAWER','OBJECT 06',`<div class="drawer-modal"><div class="drawer-plate"><i></i></div><div class="wheels">${wheel('HOUR',h,'h')}<span>:</span>${wheel('MIN',m,'m')}</div><button class="primary" id="unlockDrawer">TURN THE LOCK</button><p class="note">${S.memory1?'LOCK MECHANISM / RESPONSIVE':'LOCK MECHANISM / NO MEMORY HANDSHAKE'}</p></div>`,{dark:true});
+  let vals={h,m};
+  $('#panelBody').onclick=e=>{
+    let w=e.target.dataset.wheel;
+    if(w){let[k,a]=w.split(':');if(k==='h')vals.h=a==='inc'?(vals.h+1)%26:(vals.h+25)%26;else vals.m=a==='inc'?(vals.m+1)%60:(vals.m+59)%60;$('#hVal').textContent=String(vals.h).padStart(2,'0');$('#mVal').textContent=String(vals.m).padStart(2,'0')}
+    if(e.target.id==='unlockDrawer'){
+      if(vals.h===4&&vals.m===11&&S.memory1){save({drawer:true});restoreFX('DRAWER / RESTORED');toast('DRAWER / UNSEALED');close()}
+      else if(vals.h===4&&vals.m===11&&!S.memory1)toast('LOCK / NO MEMORY HANDSHAKE')
+      else toast('LOCK / NO RESPONSE')
+    }
+  }
+}
+function openTerminal(){
+  let final=S.routes&&!S.portrait;
+  let complete=S.portrait;
+  let state=!S.drawer?'INPUT BUS LOCKED':complete?'RESTORATION COMPLETE':final?'RESTORATION QUESTION ACTIVE':S.subject?'SUBJECT INDEX READY':'SUBJECT INDEX MISSING';
+  let label=complete?'RECOVERED OBJECT':final?'WHAT WAS MISSING?':'SUBJECT DATE';
+  let placeholder=complete?'PORTRAIT':final?'_ _ _ _ _ _ _ _':'00.00';
+  panel('ARCHIVE TERMINAL','NODE / SUBJECT',`<div class="term-log"><span>NODE 09.24 ONLINE</span><span>${state}</span>${S.subject?'<span>RECOVERED SUBJECT / 09.24</span>':''}${S.routes?'<span>ROUTE TABLE / AVAILABLE</span>':''}</div><form class="term-form" id="termForm"><label>${label}</label><div class="term-control"><input id="termInput" autofocus placeholder="${placeholder}" ${complete?'value="PORTRAIT" readonly':''}/><button>${complete?'VERIFY':'EXECUTE ↗'}</button></div></form><p class="note">${!S.drawer?'THE TERMINAL CAN BE INSPECTED, BUT IT CANNOT WRITE TO THE ARCHIVE YET.':''}</p>`,{dark:true});
+  $('#termForm').onsubmit=e=>{
+    e.preventDefault();
+    let n=norm($('#termInput').value);
+    if(!S.drawer)return toast('TERMINAL / INPUT BUS LOCKED');
+    if(complete&&n==='PORTRAIT')return toast('RESTORATION / VERIFIED');
+    if(!S.subject&&n==='0924'){save({subject:true});restoreFX('SUBJECT / RESTORED');toast('SUBJECT / FOUND');close()}
+    else if(S.subject&&!final&&n==='0924')toast('SUBJECT / VERIFIED')
+    else if(final&&n==='PORTRAIT'){save({portrait:true});restoreFX('PORTRAIT / RESTORED');setTimeout(openFinal,260)}
+    else toast(final?'RESTORATION / INCOMPLETE':'SUBJECT / NOT FOUND')
+  }
+}
+function openJudge(){
+  if(S.judgement){
+    panel('JUDGEMENT RECORD','COORDINATES / RECOVERED',`<div class="judgement-record"><div class="record-code"><small>ARCHIVE 16 / COORDINATE SET</small><b>B7 / C2 / B3 / D1 / A8 / A10 / C5</b><p>USE WITH PAPER ARCHIVE 16</p></div><button class="primary" id="judgeCloseRecord">RETURN TO ROOM A</button></div>`,{dark:true});
+    $('#judgeCloseRecord').onclick=close;
+    return
+  }
+  panel('JUDGEMENT','ORIENTATION FAILURE',`<div class="judge"><div class="judge-line"></div><button class="jnote up" data-dir="↑">↑</button><button class="jnote right" data-dir="→">→</button><button class="jnote down" data-dir="↓">↓</button><button class="jnote left" data-dir="←">←</button><div class="seq"><i></i><i></i><i></i><i></i></div><p>THE LINE DOES NOT MOVE.<br>THE WORLD DOES.</p><div class="coord-card" id="coordCard"><span>COORDINATES / RECOVERED</span><b>B7 / C2 / B3 / D1 / A8 / A10 / C5</b><small>USE WITH PAPER ARCHIVE 16</small><button id="judgeContinue">CONTINUE TO ROOM A</button></div></div>`,{dark:true});
+  let exp=['↑','→','↓','←'],seq=[],solved=false;
+  $('#panelBody').onclick=e=>{
+    if(e.target.id==='judgeContinue'){close();return}
+    if(solved)return;
+    let d=e.target.dataset.dir;if(!d)return;
+    seq.push(d);
+    if(exp.slice(0,seq.length).some((x,i)=>x!==seq[i])){seq=[];toast('JUDGEMENT / RESET')}
+    $$('.seq i').forEach((x,i)=>x.classList.toggle('hit',!!seq[i]));
+    if(seq.length===4){solved=true;save({judgement:true});restoreFX('COORDINATES / RECOVERED');toast('COORDINATES / RECOVERED');$('.judge').classList.add('solved');$('#coordCard').classList.add('revealed')}
+  }
+}
+function openMirror(){
+  if(!S.judgement){
+    return panel('REFLECTION','OBJECT 05',`<div class="mirror-modal"><div class="glass"><span>NO SIGNAL</span></div><p>REFLECTION / INACTIVE<br>THE SURFACE HOLDS NO STABLE RECORD YET.</p></div>`,{dark:true})
+  }
+  if(!S.mirror1){
+    save({mirror1:true});restoreFX('REFLECTION / RESTORED');
+    return panel('REFLECTION','OBJECT 05',`<div class="mirror-modal"><div class="glass"><span>ARCHIVE 18</span></div><p>THE REFLECTION DOES NOT POINT FORWARD.</p></div>`,{dark:true})
+  }
+  if(!S.routes){
+    return panel('REFLECTION / RECOVERED','OBJECT 05',`<div class="mirror-modal"><div class="glass"><span>ARCHIVE 18</span></div><p>THE REFLECTION DOES NOT POINT FORWARD.<br>RECORD AVAILABLE FOR REVIEW.</p></div>`,{dark:true})
+  }
+  panel('REFLECTION / ROUTING','OBJECT 05',`<div class="route"><p>NOT DATES.</p><h3>ROUTES.</h3><div class="route-list"><span>02<i></i>10</span><span>04<i></i>11</span><span>09<i></i>24</span><span>25<i></i>00</span></div><small>PAPER ARCHIVES 25–26 HOLD THE EXTRACTION.</small></div>`,{dark:true})
+}
+function openCube(){
+  let active=S.mirror1;
+  let faces=active?[['◉','EYE'],['◆','RAVEN'],['▭','FRAME'],['◷','CLOCK']]:[['·','UNREADABLE'],['·','UNREADABLE'],['·','UNREADABLE'],['·','UNREADABLE']],idx=0;
+  let footer=S.four?'<button class="primary" id="openRecoveredMemories">OPEN RECOVERED MEMORY STACK</button>':`<form class="cube-form" id="cubeForm"><input id="cubeAnswer" placeholder="${active?'READ THE FOUR FACES':'OBJECT DORMANT'}"/><button>UNSEAL</button></form>`;
+  panel(S.four?'BLACK CUBE / RECOVERED':'BLACK CUBE','OBJECT 04',`<div class="cube-modal"><button class="cube-stage" id="spinCube"><div class="cube3d"><span id="faceGlyph">${faces[0][0]}</span></div></button><div class="face-log">FACE <span id="faceNum">1</span>/4 <b id="faceName">${faces[0][1]}</b></div><p>${active?'THE ORDER LIVES HERE.<br>THE LETTERS DO NOT.':'THE CUBE CAN BE ROTATED, BUT ITS SURFACE WILL NOT RESOLVE.'}</p>${footer}</div>`,{dark:true});
+  $('#spinCube').onclick=()=>{idx=(idx+1)%4;$('#faceGlyph').textContent=faces[idx][0];$('#faceNum').textContent=idx+1;$('#faceName').textContent=faces[idx][1]};
+  let memBtn=$('#openRecoveredMemories');if(memBtn)memBtn.onclick=openMemories;
+  let form=$('#cubeForm');if(form)form.onsubmit=e=>{e.preventDefault();if(!active)return toast('OBJECT / DORMANT');if(norm($('#cubeAnswer').value)==='FOUR'){save({four:true});restoreFX('MEMORY STACK / RESTORED');toast('MEMORY STACK / RECOVERED');openMemories()}else toast('CUBE / UNREADABLE')}
+}
 function openMemories(){let mem=[['02.10','TWO VOICES'],['04.11','LAUGHTER'],['09.24','EMPTY FRAME'],['25.00','CLOCK']];panel('RECOVERED MEMORY STACK','04 RECORDS',`<div class="memory-head">${S.collision?'03 SUBJECT RECORDS / 01 EXTERNAL':'ALL DATES ARE VALID. NOT ALL OWNERS ARE.'}</div>${mem.map((x,i)=>`<button class="memory-btn ${S.collision&&x[0]==='02.10'?'external':''}" data-date="${x[0]}"><span>0${i+1}</span><b>${x[0]}</b><em>${S.collision&&x[0]==='02.10'?'EXTERNAL / ♪ K':x[1]}</em></button>`).join('')}${S.collision?'<div class="reassign"><span>DATE / VALID</span><span>OWNER / INVALID</span><span>REASSIGNED / COMPLETE</span></div>':'<p class="note">PAPER ARCHIVES 21–22 IDENTIFY THE OWNER COLLISION.</p>'}`);$$('.memory-btn').forEach(b=>b.onclick=()=>{if(S.collision)return;if(b.dataset.date==='02.10')openCollision();else toast('OWNER / VERIFIED')})}
 function openCollision(){panel('02.10 / COLLISION','OWNER CHECK',`<div class="memory-head">SAME DATE. DIFFERENT OWNER.</div><button class="memory-btn" data-owner="subject"><span>01</span><b>♥</b><em>SUBJECT / 02.10</em></button><button class="memory-btn" data-owner="external"><span>02</span><b>♪</b><em>EXTERNAL / K / 02.10</em></button><p class="note">SELECT THE MISFILED OWNER. / PAPER ARCHIVE 22</p>`);$$('[data-owner]').forEach(b=>b.onclick=()=>{if(b.dataset.owner==='external'){save({collision:true,routes:true});restoreFX('MEMORY / REASSIGNED');toast('MEMORY / REASSIGNED');panel('CORRECTION LOG','02.10',`<div class="reassign"><span>DATE / VALID</span><span>OWNER / INVALID</span><span>ERROR / COLLISION</span><span>MEMORY / REASSIGNED</span></div><p class="note">KEEP THE NUMBER. CHANGE WHAT IT MEANS.<br>PAPER ARCHIVES 23–27 ARE NOW ACTIVE.</p>`)}else toast('THIS RECORD BELONGS TO THE SUBJECT')})}
 function kanadePortraitSVG(){return `<svg class="kanade-portrait" viewBox="0 0 620 820" role="img" aria-label="Recovered portrait of Yoisaki Kanade"><defs><linearGradient id="hair" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f4f7f8"/><stop offset=".42" stop-color="#c8d7df"/><stop offset=".72" stop-color="#9dafbd"/><stop offset="1" stop-color="#657482"/></linearGradient><linearGradient id="hairShade" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#dbe5ea"/><stop offset="1" stop-color="#80909d"/></linearGradient><linearGradient id="hood" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#2a3440"/><stop offset=".55" stop-color="#151b23"/><stop offset="1" stop-color="#090c11"/></linearGradient><radialGradient id="halo"><stop stop-color="#a6c2d6" stop-opacity=".18"/><stop offset="1" stop-color="#0b0d11" stop-opacity="0"/></radialGradient></defs><ellipse cx="310" cy="380" rx="250" ry="330" fill="url(#halo)"/><path d="M155 704C117 578 108 342 159 189 186 107 244 61 310 58c73 4 134 58 158 143 42 148 33 384-8 511-38 64-98 92-151 92-57 0-115-28-154-100Z" fill="url(#hair)" opacity=".97"/><path d="M216 257c4-101 48-151 101-151 57 0 101 57 99 158-1 111-43 208-105 211-66 4-104-103-95-218Z" fill="#eadfdb"/><path d="M175 254c26-115 101-176 164-143 54 29 90 102 72 183-24-66-76-91-127-76-40 11-75 28-109 36Z" fill="url(#hairShade)"/><path d="M297 100c11 95-25 174-53 235 47-44 77-112 91-189 25 65 28 127 17 184 31-53 54-126 40-187-27-28-58-42-95-43Z" fill="#e5eef2"/><path d="M200 254c-33 116-11 327 20 443M424 245c39 119 18 330-15 460" fill="none" stroke="#c9d8e1" stroke-width="42" stroke-linecap="round" opacity=".92"/><path d="M252 316q22 13 43 0M340 316q21 13 42 0" stroke="#52799a" stroke-width="7" stroke-linecap="round"/><ellipse cx="274" cy="319" rx="9" ry="11" fill="#8dccf3"/><ellipse cx="361" cy="319" rx="9" ry="11" fill="#8dccf3"/><circle cx="277" cy="315" r="2.8" fill="#e7f6ff"/><circle cx="364" cy="315" r="2.8" fill="#e7f6ff"/><path d="M307 364q12 8 26 0" fill="none" stroke="#9a7774" stroke-width="4" stroke-linecap="round"/><path d="M191 781c22-129 81-226 126-226 55 0 123 112 139 226Z" fill="url(#hood)"/><path d="M215 623c30 37 67 54 103 54 40 0 77-19 105-57" fill="none" stroke="#738493" stroke-width="10" opacity=".65"/><path d="M185 660c38-57 76-83 121-95M448 662c-41-60-83-86-126-98" fill="none" stroke="#3c4855" stroke-width="18" stroke-linecap="round"/><path d="M126 783c22-118 57-173 110-194M496 783c-24-119-61-177-112-197" fill="none" stroke="#1f2832" stroke-width="62" stroke-linecap="round"/></svg>`}
 function openFinal(){panel('RESTORATION','CASE 09.24',`<div class="final"><div class="final-portrait">${kanadePortraitSVG()}</div><div class="final-copy"><small>RESTORATION / 100%</small><h2>THE PORTRAIT<br>HAS RETURNED.</h2><p>CASE 09.24 / CLOSED</p><div id="claimArea">${S.claimed?ticketHTML():'<button class="claim" id="claim">CLAIM ARCHIVE ITEM 0924</button>'}</div></div></div>`,{dark:true,full:true});let c=$('#claim');if(c)c.onclick=()=>{save({claimed:true});restoreFX('ARCHIVE ITEM / CLAIMABLE');$('#claimArea').innerHTML=ticketHTML()}}
 function ticketHTML(){return '<div class="ticket"><span>ARCHIVE ITEM / 0924</span><b>CLAIMABLE</b><p>PRESENT THIS SCREEN TO THE ARCHIVIST.</p></div>'}
-$$('[data-obj]').forEach(b=>b.onclick=()=>{let o=b.dataset.obj;if(o==='window')toast('WINDOW / SEALED');if(o==='clock')openClock();if(o==='drawer')openDrawer();if(o==='terminal')openTerminal();if(o==='mirror')openMirror();if(o==='cube')openCube();if(o==='raven')toast(S.judgement?'THE BIRD IS FACING THE WRONG WAY.':'THE WITNESS DOES NOT SPEAK.');if(o==='orchid')toast(S.judgement?'ORCHID / ONE LEAF MISSING':'ORCHID / STABLE');if(o==='frame')S.portrait?openFinal():toast('FRAME / CONTENT MISSING')});
-$('#memoryOpen').onclick=openMemories;$('#backdrop').onclick=close;$('#panelClose').onclick=close;$('#reset').onclick=()=>{if(confirm('Reset the entire archive?')){localStorage.removeItem(K);location.reload()}};
+
+function openWindow(){panel('WINDOW','OBJECT 01',`<div class="evidence-view"><div class="evidence-hero"><div class="evidence-symbol">☾</div></div><div class="evidence-copy"><small>VISUAL CHECK / WINDOW</small><h3>${S.judgement?'THE MOON IS WRONG.':'SEALED WINDOW'}</h3><p>${S.judgement?'THE LIGHT NO LONGER MATCHES THE ORIGINAL ROOM RECORD.':'NO MECHANICAL RESPONSE. MOONLIGHT ENTERS FROM THE LEFT.'}</p></div></div>`,{dark:true})}
+function openRaven(){panel('RAVEN','OBJECT 02',`<div class="evidence-view"><div class="evidence-hero"><div class="evidence-symbol">◆</div></div><div class="evidence-copy"><small>WITNESS / ORIENTATION</small><h3>${S.judgement?'FACING THE WRONG WAY':'THE WITNESS DOES NOT SPEAK'}</h3><p>${S.judgement?'ORIENTATION DIFFERS FROM THE ORIGINAL ROOM RECORD.':'NO AUDIO RECORD. POSITION LOGGED.'}</p></div></div>`,{dark:true})}
+function openOrchid(){panel('ORCHID','OBJECT 08',`<div class="evidence-view"><div class="evidence-hero"><div class="evidence-symbol">✦</div></div><div class="evidence-copy"><small>BOTANICAL CHECK / ORCHID</small><h3>${S.judgement?'ONE LEAF IS MISSING':'SPECIMEN STABLE'}</h3><p>${S.judgement?'CURRENT FORM DOES NOT MATCH THE ORIGINAL RECORD.':'NO CHANGE DETECTED.'}</p></div></div>`,{dark:true})}
+function openInk(){panel('INK','OBJECT 07',`<div class="evidence-view"><div class="evidence-hero"><div class="evidence-symbol">∿</div></div><div class="evidence-copy"><small>DESK EVIDENCE / INK</small><h3>${S.judgement?'POSITION MISMATCH':'INK / STABLE'}</h3><p>${S.judgement?'THE INK RECORD NO LONGER MATCHES ITS ORIGINAL POSITION.':'BOTTLE AND QUILL LOGGED ON THE DRESSER.'}</p></div></div>`,{dark:true})}
+function openRug(){panel('RUG','OBJECT 09',`<div class="evidence-view"><div class="evidence-hero"><div class="evidence-symbol">◇</div></div><div class="evidence-copy"><small>FLOOR EVIDENCE / RUG</small><h3>${S.judgement?'PATTERN MISMATCH':'PATTERN / STABLE'}</h3><p>${S.judgement?'THE FLOOR PATTERN DIFFERS FROM THE ORIGINAL ROOM RECORD.':'NO DISPLACEMENT DETECTED.'}</p></div></div>`,{dark:true})}
+function openFrame(){if(S.portrait)return openFinal();panel('EMPTY FRAME','OBJECT 00',`<div class="evidence-view"><div class="evidence-hero"><div class="evidence-symbol">▭</div></div><div class="evidence-copy"><small>FRAME / CONTENT CHECK</small><h3>CONTENT MISSING</h3><p>THE FRAME IS PRESENT. THE CONTENT IS NOT.</p></div></div>`,{dark:true})}
+$$('[data-obj]').forEach(b=>b.onclick=()=>{let o=b.dataset.obj;if(o==='window')openWindow();if(o==='clock')openClock();if(o==='drawer')openDrawer();if(o==='terminal')openTerminal();if(o==='mirror')openMirror();if(o==='cube')openCube();if(o==='raven')openRaven();if(o==='orchid')openOrchid();if(o==='ink')openInk();if(o==='rug')openRug();if(o==='frame')openFrame()});
+$('#memoryOpen').onclick=openMemories;$('#evidenceOpen').onclick=openJudge;$('#backdrop').onclick=close;$('#panelClose').onclick=close;$('#reset').onclick=()=>{if(confirm('Reset the entire archive?')){localStorage.removeItem(K);location.reload()}};
 $('#gateForm').onsubmit=e=>{e.preventDefault();if(norm($('#gateInput').value)==='CANVAS'){save({access:true});restoreFX('ACCESS / RESTORED');opening()}else $('#gateError').classList.add('show')};
 render();if(S.access)opening();else opening();
 })();
