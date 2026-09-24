@@ -737,11 +737,11 @@ function openTerminal(){
 }
 function openJudge(){
   if(S.judgement){
-    panel('JUDGEMENT RECORD','COORDINATES / RECOVERED',`<div class="judgement-record"><div class="record-code"><small>ARCHIVE 16 / COORDINATE SET</small><b>B7 / C2 / B3 / D1 / A8 / A10 / C5</b><p>USE WITH PAPER ARCHIVE 16</p></div><button class="primary" id="judgeCloseRecord">RETURN TO ROOM A</button></div>`,{dark:true});
+    panel('JUDGEMENT RECORD','COORDINATES / RECOVERED',`<div class="judgement-record"><div class="record-code"><small>ARCHIVE 16 / COORDINATE SET</small><b>B5 / A5 / B8 / D5 / C5</b><p>USE WITH PAPER ARCHIVE 16</p></div><button class="primary" id="judgeCloseRecord">RETURN TO ROOM A</button></div>`,{dark:true});
     $('#judgeCloseRecord').onclick=close;
     return
   }
-  panel('JUDGEMENT','ORIENTATION FAILURE',`<div class="judge"><div class="judge-line"></div><button class="jnote up" data-dir="↑">↑</button><button class="jnote right" data-dir="→">→</button><button class="jnote down" data-dir="↓">↓</button><button class="jnote left" data-dir="←">←</button><div class="seq"><i></i><i></i><i></i><i></i></div><p>THE LINE DOES NOT MOVE.<br>THE WORLD DOES.</p><div class="coord-card" id="coordCard"><span>COORDINATES / RECOVERED</span><b>B7 / C2 / B3 / D1 / A8 / A10 / C5</b><small>USE WITH PAPER ARCHIVE 16</small><button id="judgeContinue">CONTINUE TO ROOM A</button></div></div>`,{dark:true});
+  panel('JUDGEMENT','ORIENTATION FAILURE',`<div class="judge"><div class="judge-line"></div><button class="jnote up" data-dir="↑">↑</button><button class="jnote right" data-dir="→">→</button><button class="jnote down" data-dir="↓">↓</button><button class="jnote left" data-dir="←">←</button><div class="seq"><i></i><i></i><i></i><i></i></div><p>THE LINE DOES NOT MOVE.<br>THE WORLD DOES.</p><div class="coord-card" id="coordCard"><span>COORDINATES / RECOVERED</span><b>B5 / A5 / B8 / D5 / C5</b><small>USE WITH PAPER ARCHIVE 16</small><button id="judgeContinue">CONTINUE TO ROOM A</button></div></div>`,{dark:true});
   let exp=['↑','→','↓','←'],seq=[],solved=false;
   $('#panelBody').onclick=e=>{
     if(e.target.id==='judgeContinue'){close();return}
