@@ -696,6 +696,115 @@
   .obs-right{transform:rotateY(90deg) translateZ(74px)}.obs-left{transform:rotateY(-90deg) translateZ(74px)}
   .obs-top{transform:rotateX(90deg) translateZ(74px)}.obs-bottom{transform:rotateX(-90deg) translateZ(74px)}
 }
+
+/* === v12 / one physical cube, four clue faces === */
+.cube-modal{padding-top:2px!important}
+.onecube-help{
+  text-align:center;margin:0 0 15px;
+  font:7px ui-monospace,monospace;letter-spacing:.18em;color:#7b746d
+}
+.onecube-stage{
+  width:min(560px,100%);height:370px;margin:0 auto 12px;
+  display:grid;place-items:center;perspective:1200px;touch-action:none;
+  border:1px solid rgba(215,201,181,.10);border-radius:18px;
+  background:radial-gradient(circle at 50% 45%,rgba(255,255,255,.045),transparent 56%);
+  cursor:grab;user-select:none
+}
+.onecube-stage.dragging{cursor:grabbing}
+.onecube{
+  width:184px;height:184px;position:relative;transform-style:preserve-3d;
+  transform:rotateX(-14deg) rotateY(24deg);
+  transition:transform .58s cubic-bezier(.16,1,.3,1)
+}
+.onecube.dragging{transition:none}
+.onecube-face{
+  position:absolute;inset:0;
+  background:linear-gradient(145deg,#191919 0%,#080808 62%,#111 100%);
+  border:1px solid #343434;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.018),inset 0 0 38px rgba(0,0,0,.64);
+  display:grid;place-items:center;backface-visibility:hidden
+}
+.onecube-face:after{
+  content:"";position:absolute;inset:11px;
+  border:1px solid rgba(210,210,210,.065);pointer-events:none
+}
+.onecube-face.front{transform:translateZ(92px)}
+.onecube-face.back{transform:rotateY(180deg) translateZ(92px)}
+.onecube-face.right{transform:rotateY(90deg) translateZ(92px)}
+.onecube-face.left{transform:rotateY(-90deg) translateZ(92px)}
+.onecube-face.top{transform:rotateX(90deg) translateZ(92px)}
+.onecube-face.bottom{transform:rotateX(-90deg) translateZ(92px)}
+
+.face-card{
+  position:absolute;inset:0;transform-style:preserve-3d;
+  transition:transform .52s cubic-bezier(.16,1,.3,1)
+}
+.face-card.revealed{transform:rotateY(180deg)}
+.face-card-side{
+  position:absolute;inset:0;display:grid;place-items:center;
+  backface-visibility:hidden
+}
+.face-card-side.reverse{transform:rotateY(180deg)}
+.face-symbol{width:72%;height:72%;display:grid;place-items:center;color:#c7c7c7}
+.face-symbol svg{width:100%;height:100%;stroke:currentColor;fill:none;stroke-width:2}
+.face-symbol.raven svg{fill:#bcbcbc;stroke:#bcbcbc}
+.face-name{
+  position:absolute;bottom:16px;font:7px ui-monospace,monospace;
+  letter-spacing:.18em;color:#686868
+}
+.face-letter{
+  font:400 78px Georgia,serif;color:#dedede;
+  text-shadow:0 0 20px rgba(255,255,255,.08)
+}
+.face-letter-label{
+  position:absolute;bottom:16px;font:7px ui-monospace,monospace;
+  letter-spacing:.18em;color:#666
+}
+.onecube-mark{
+  font:7px ui-monospace,monospace;letter-spacing:.2em;color:#4a4a4a
+}
+
+.onecube-arrows{
+  width:min(390px,100%);margin:5px auto 13px;
+  display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto auto auto;
+  gap:7px;place-items:center
+}
+.onecube-arrows button{
+  width:74px;height:38px;border:1px solid rgba(212,198,177,.16);
+  border-radius:999px;background:rgba(255,255,255,.02);color:#aaa19a;
+  font-size:13px
+}
+.onecube-arrows .up{grid-column:2;grid-row:1}
+.onecube-arrows .left{grid-column:1;grid-row:2}
+.onecube-arrows .reveal{grid-column:2;grid-row:2;width:112px;font-size:7px;letter-spacing:.12em}
+.onecube-arrows .right{grid-column:3;grid-row:2}
+.onecube-arrows .down{grid-column:2;grid-row:3}
+
+.onecube-readout{
+  display:flex;justify-content:center;gap:10px;align-items:center;
+  min-height:20px;margin-bottom:12px;
+  font:7px ui-monospace,monospace;letter-spacing:.15em;color:#756e67
+}
+.onecube-readout b{font-weight:400;color:#c9c0b7}
+.onecube-readout .dot{opacity:.3}
+.onecube-progress{
+  display:flex;justify-content:center;gap:7px;margin:0 auto 13px
+}
+.onecube-progress i{
+  width:30px;height:2px;background:#2b2927;transition:.25s ease
+}
+.onecube-progress i.hit{background:#aaa19a}
+.cube-modal>p{margin:13px auto 25px!important}
+@media(max-width:760px){
+  .onecube-stage{height:300px}
+  .onecube{width:154px;height:154px}
+  .onecube-face.front{transform:translateZ(77px)}
+  .onecube-face.back{transform:rotateY(180deg) translateZ(77px)}
+  .onecube-face.right{transform:rotateY(90deg) translateZ(77px)}
+  .onecube-face.left{transform:rotateY(-90deg) translateZ(77px)}
+  .onecube-face.top{transform:rotateX(90deg) translateZ(77px)}
+  .onecube-face.bottom{transform:rotateX(-90deg) translateZ(77px)}
+}
 </style>
 <style id="room-visual-v6">
 #room{display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:11px;padding:12px 22px 14px!important;background:radial-gradient(circle at 50% 42%,#151310 0,#080808 72%)!important}
@@ -857,96 +966,143 @@ function openMirror(){
 }
 function openCube(){
   const active=S.mirror1;
-  const pairs=[
-    {name:'EYE',letter:'F',icon:'eye'},
-    {name:'RAVEN',letter:'O',icon:'raven'},
-    {name:'FRAME',letter:'U',icon:'frame'},
-    {name:'CLOCK',letter:'R',icon:'clock'}
-  ];
-  let idx=0,rx=-18,ry=28,flipped=false,drag=false,lastX=0,lastY=0;
+  const clueFaces={
+    front:{name:'EYE',letter:'F',icon:'eye'},
+    right:{name:'RAVEN',letter:'O',icon:'raven'},
+    back:{name:'FRAME',letter:'U',icon:'frame'},
+    left:{name:'CLOCK',letter:'R',icon:'clock'}
+  };
+  const faceNormals={
+    front:[0,0,1],back:[0,0,-1],right:[1,0,0],left:[-1,0,0],top:[0,-1,0],bottom:[0,1,0]
+  };
+  let rx=0,ry=0,drag=false,startX=0,startY=0,tempX=0,tempY=0;
+  const revealed=new Set();
 
-  const iconSVG=(type)=>{
-    if(!active)return '<div class="obs-side-mark">UNREADABLE</div>';
-    if(type==='eye')return '<div class="cube-clue eye"><svg viewBox="0 0 100 100"><path d="M10 50Q50 17 90 50Q50 83 10 50Z"/><circle cx="50" cy="50" r="15"/><circle cx="50" cy="50" r="5" fill="currentColor"/></svg><span class="cube-clue-label">EYE</span></div>';
-    if(type==='raven')return '<div class="cube-clue raven"><svg viewBox="0 0 100 100"><path d="M19 69C31 45 50 34 67 37c9-12 17-14 26-9-7 6-8 11-5 17 8 7 7 20-2 27-14 12-39 9-54 2L22 86l3-15Z"/><circle cx="75" cy="40" r="2.4" fill="#111"/></svg><span class="cube-clue-label">RAVEN</span></div>';
-    if(type==='frame')return '<div class="cube-clue frame"><svg viewBox="0 0 100 100"><rect x="20" y="15" width="60" height="70" rx="2"/><rect x="29" y="24" width="42" height="52" rx="1"/></svg><span class="cube-clue-label">FRAME</span></div>';
-    return '<div class="cube-clue clock"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="34"/><path d="M50 50V29M50 50L68 61"/><path d="M50 20v6M80 50h-6M50 80v-6M20 50h6"/></svg><span class="cube-clue-label">CLOCK</span></div>';
+  const symbol=(type,name)=>{
+    if(!active)return '<div class="onecube-mark">UNREADABLE</div>';
+    if(type==='eye')return `<div class="face-symbol"><svg viewBox="0 0 100 100"><path d="M9 50Q50 17 91 50Q50 83 9 50Z"/><circle cx="50" cy="50" r="15"/><circle cx="50" cy="50" r="5" fill="currentColor"/></svg><span class="face-name">${name}</span></div>`;
+    if(type==='raven')return `<div class="face-symbol raven"><svg viewBox="0 0 100 100"><path d="M18 70C31 44 49 34 68 37c8-12 17-15 26-9-7 6-8 11-5 17 8 8 7 20-3 28-14 11-39 9-54 1L21 87l4-16Z"/><circle cx="76" cy="40" r="2.5" fill="#111"/></svg><span class="face-name">${name}</span></div>`;
+    if(type==='frame')return `<div class="face-symbol"><svg viewBox="0 0 100 100"><rect x="19" y="14" width="62" height="72" rx="2"/><rect x="29" y="24" width="42" height="52" rx="1"/></svg><span class="face-name">${name}</span></div>`;
+    return `<div class="face-symbol"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="34"/><path d="M50 50V28M50 50L68 61"/><path d="M50 19v7M81 50h-7M50 81v-7M19 50h7"/></svg><span class="face-name">${name}</span></div>`;
+  };
+
+  const clueMarkup=(face)=>{
+    const p=clueFaces[face];
+    return `<div class="face-card" data-face-card="${face}">
+      <div class="face-card-side frontside">${symbol(p.icon,p.name)}</div>
+      <div class="face-card-side reverse"><div class="face-letter">${active?p.letter:'?'}</div><span class="face-letter-label">REVERSE / ${p.name}</span></div>
+    </div>`
   };
 
   let footer=S.four
     ? '<button class="primary" id="openRecoveredMemories">OPEN RECOVERED MEMORY STACK</button>'
-    : `<form class="cube-form" id="cubeForm"><input id="cubeAnswer" placeholder="${active?'READ THE OPPOSITE LETTERS':'OBJECT DORMANT'}"/><button>UNSEAL</button></form>`;
+    : `<form class="cube-form" id="cubeForm"><input id="cubeAnswer" placeholder="${active?'READ THE FOUR REVERSE SIDES':'OBJECT DORMANT'}"/><button>UNSEAL</button></form>`;
 
   panel(S.four?'BLACK CUBE / RECOVERED':'BLACK CUBE','OBJECT 04',`
     <div class="cube-modal">
-      <div class="cube-instruction">${active?'SELECT A CLUE · DRAG TO ROTATE · FLIP 180° TO SEE ITS OPPOSITE':'THE CUBE CAN BE INSPECTED, BUT ITS MARKINGS HAVE NOT RESOLVED'}</div>
-      <div class="cube-selector">
-        ${pairs.map((p,i)=>`<button class="${i===0?'active':''}" data-cube-pair="${i}">${p.name}</button>`).join('')}
-      </div>
-      <div class="cube-viewport" id="cubeViewport">
-        <div class="obsidian-cube" id="obsCube">
-          <div class="obs-face obs-front" id="obsFront"></div>
-          <div class="obs-face obs-back" id="obsBack"></div>
-          <div class="obs-face obs-right"><span class="obs-side-mark">04</span></div>
-          <div class="obs-face obs-left"><span class="obs-side-mark">ARCHIVE</span></div>
-          <div class="obs-face obs-top"><span class="obs-side-mark">AFTER 25:00</span></div>
-          <div class="obs-face obs-bottom"><span class="obs-side-mark">OBJECT</span></div>
+      <div class="onecube-help">${active?'DRAG OR USE THE ARROWS · TURN ONE CUBE · REVEAL THE REVERSE OF EACH CLUE FACE':'THE CUBE IS PRESENT, BUT ITS INSCRIPTIONS HAVE NOT RESOLVED'}</div>
+
+      <div class="onecube-stage" id="onecubeStage">
+        <div class="onecube" id="onecube">
+          <div class="onecube-face front">${clueMarkup('front')}</div>
+          <div class="onecube-face right">${clueMarkup('right')}</div>
+          <div class="onecube-face back">${clueMarkup('back')}</div>
+          <div class="onecube-face left">${clueMarkup('left')}</div>
+          <div class="onecube-face top"><span class="onecube-mark">AFTER 25:00</span></div>
+          <div class="onecube-face bottom"><span class="onecube-mark">OBJECT 04</span></div>
         </div>
       </div>
-      <div class="cube-controls">
-        <button data-cube-act="left">ROTATE ◂</button>
-        <button data-cube-act="flip">FLIP 180°</button>
-        <button data-cube-act="right">ROTATE ▸</button>
-        <button data-cube-act="reset">RESET VIEW</button>
+
+      <div class="onecube-arrows">
+        <button class="up" data-turn="up">↑</button>
+        <button class="left" data-turn="left">←</button>
+        <button class="reveal" id="revealFace">REVEAL FACE</button>
+        <button class="right" data-turn="right">→</button>
+        <button class="down" data-turn="down">↓</button>
       </div>
-      <div class="cube-readout">
-        <span>CLUE <b id="cubeClueName">EYE</b></span>
-        <span class="sep">/</span>
-        <span>OPPOSITE <b id="cubeOpposite">${active?'F':'?'}</b></span>
+
+      <div class="onecube-readout">
+        <span>FRONT <b id="currentCubeFace">EYE</b></span>
+        <span class="dot">•</span>
+        <span id="cubeStateText">${active?'CLUE SIDE':'UNREADABLE'}</span>
       </div>
-      <p>${active?'THE IMAGE IS NOT THE LETTER.<br>TURN THE CUBE OVER.':'THE SURFACE IS PRESENT. THE RECORD IS NOT.'}</p>
+      <div class="onecube-progress"><i></i><i></i><i></i><i></i></div>
+
+      <p>${active?'FOUR IMAGES ARE ON THE SAME CUBE.<br>THEIR REVERSE SIDES HOLD THE LETTERS.':'THE SURFACE EXISTS. THE RECORD DOES NOT.'}</p>
       ${footer}
     </div>
   `,{dark:true});
 
-  const cube=$('#obsCube'),viewport=$('#cubeViewport');
+  const cube=$('#onecube'),stage=$('#onecubeStage');
 
-  function draw(){
-    const p=pairs[idx];
-    $('#obsFront').innerHTML=iconSVG(p.icon);
-    $('#obsBack').innerHTML=active?`<div class="cube-opposite-letter">${p.letter}</div>`:'<div class="obs-side-mark">?</div>';
-    $('#cubeClueName').textContent=active?p.name:'UNREADABLE';
-    $('#cubeOpposite').textContent=active?p.letter:'?';
-    $$('[data-cube-pair]').forEach((x,i)=>x.classList.toggle('active',i===idx));
-    cube.style.transform=`rotateX(${rx}deg) rotateY(${ry+(flipped?180:0)}deg)`;
+  const rad=d=>d*Math.PI/180;
+  function currentFace(){
+    let best='front',bestZ=-999;
+    for(const [name,n] of Object.entries(faceNormals)){
+      let [x,y,z]=n;
+      const cy=Math.cos(rad(ry)),sy=Math.sin(rad(ry));
+      const x1=cy*x+sy*z, y1=y, z1=-sy*x+cy*z;
+      const cx=Math.cos(rad(rx)),sx=Math.sin(rad(rx));
+      const z2=sx*y1+cx*z1;
+      if(z2>bestZ){bestZ=z2;best=name}
+    }
+    return best
   }
-  draw();
+  function snap(v){return Math.round(v/90)*90}
+  function normalize(){rx=((snap(rx)%360)+360)%360;ry=((snap(ry)%360)+360)%360}
+  function render(extraX=0,extraY=0){
+    cube.style.transform=`rotateX(${rx+extraX}deg) rotateY(${ry+extraY}deg)`;
+    const f=currentFace(),clue=clueFaces[f];
+    $('#currentCubeFace').textContent=clue?(active?clue.name:'UNREADABLE'):(f==='top'?'ARCHIVE':'OBJECT 04');
+    $('#cubeStateText').textContent=clue?(revealed.has(f)?'REVERSE SIDE':'CLUE SIDE'):'NO LETTER';
+    $$('[data-face-card]').forEach(card=>card.classList.toggle('revealed',revealed.has(card.dataset.faceCard)));
+    const order=['front','right','back','left'];
+    $$('.onecube-progress i').forEach((x,i)=>x.classList.toggle('hit',revealed.has(order[i])))
+  }
+  function turn(dir){
+    if(dir==='left')ry-=90;
+    if(dir==='right')ry+=90;
+    if(dir==='up')rx+=90;
+    if(dir==='down')rx-=90;
+    normalize();render()
+  }
+  function revealCurrent(){
+    const f=currentFace();
+    if(!clueFaces[f])return toast('THIS FACE HOLDS NO LETTER');
+    if(!active)return toast('OBJECT / DORMANT');
+    revealed.has(f)?revealed.delete(f):revealed.add(f);
+    render()
+  }
+
+  render();
 
   $('#panelBody').onclick=e=>{
-    const pick=e.target.closest('[data-cube-pair]');
-    if(pick){idx=+pick.dataset.cubePair;flipped=false;rx=-18;ry=28;draw();return}
-    const act=e.target.dataset.cubeAct;
-    if(act==='left'){ry-=90;draw()}
-    if(act==='right'){ry+=90;draw()}
-    if(act==='flip'){flipped=!flipped;draw()}
-    if(act==='reset'){rx=-18;ry=28;flipped=false;draw()}
+    const dir=e.target.dataset.turn;
+    if(dir){turn(dir);return}
+    if(e.target.id==='revealFace'){revealCurrent();return}
   };
 
-  viewport.onpointerdown=e=>{
-    drag=true;lastX=e.clientX;lastY=e.clientY;
-    cube.classList.add('dragging');
-    viewport.setPointerCapture?.(e.pointerId)
+  stage.onpointerdown=e=>{
+    drag=true;startX=e.clientX;startY=e.clientY;tempX=0;tempY=0;
+    cube.classList.add('dragging');stage.classList.add('dragging');
+    stage.setPointerCapture?.(e.pointerId)
   };
-  viewport.onpointermove=e=>{
+  stage.onpointermove=e=>{
     if(!drag)return;
-    const dx=e.clientX-lastX,dy=e.clientY-lastY;
-    lastX=e.clientX;lastY=e.clientY;
-    ry+=dx*.6;rx-=dy*.45;rx=Math.max(-72,Math.min(72,rx));
-    draw()
+    tempY=(e.clientX-startX)*.55;tempX=-(e.clientY-startY)*.45;
+    render(tempX,tempY)
   };
-  const stop=e=>{drag=false;cube.classList.remove('dragging');try{viewport.releasePointerCapture?.(e.pointerId)}catch{}};
-  viewport.onpointerup=stop;viewport.onpointercancel=stop;
-  viewport.ondblclick=()=>{flipped=!flipped;draw()};
+  const endDrag=e=>{
+    if(!drag)return;drag=false;
+    cube.classList.remove('dragging');stage.classList.remove('dragging');
+    if(Math.abs(tempY)>Math.abs(tempX)&&Math.abs(tempY)>24)ry+=tempY>0?90:-90;
+    else if(Math.abs(tempX)>24)rx+=tempX>0?90:-90;
+    tempX=tempY=0;normalize();render();
+    try{stage.releasePointerCapture?.(e.pointerId)}catch{}
+  };
+  stage.onpointerup=endDrag;stage.onpointercancel=endDrag;
+
+  stage.ondblclick=()=>revealCurrent();
 
   let memBtn=$('#openRecoveredMemories');if(memBtn)memBtn.onclick=openMemories;
   let form=$('#cubeForm');if(form)form.onsubmit=e=>{
