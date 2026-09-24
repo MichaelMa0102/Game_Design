@@ -607,6 +607,95 @@
   .prompt-actions{grid-column:2/3;grid-row:1/3;max-width:145px}
   .prompt-actions button{white-space:normal}
 }
+
+/* === v11 / true rotating obsidian cube === */
+.cube-modal{padding-top:4px!important}
+.cube-instruction{
+  margin:0 0 16px;text-align:center;font:7px ui-monospace,monospace;
+  letter-spacing:.18em;color:#7d756d
+}
+.cube-selector{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
+  width:min(620px,100%);margin:0 auto 18px
+}
+.cube-selector button{
+  border:1px solid rgba(212,198,177,.14);border-radius:10px;
+  background:rgba(255,255,255,.018);color:#817970;
+  min-height:48px;padding:8px;font-size:8px;letter-spacing:.15em
+}
+.cube-selector button.active{
+  color:#e2d8cc;border-color:rgba(221,208,188,.34);
+  background:rgba(255,255,255,.05)
+}
+.cube-viewport{
+  width:min(520px,100%);height:340px;margin:0 auto 14px;
+  display:grid;place-items:center;perspective:1100px;touch-action:none;
+  border:1px solid rgba(212,198,177,.10);border-radius:18px;
+  background:radial-gradient(circle at 50% 43%,rgba(255,255,255,.04),transparent 54%)
+}
+.obsidian-cube{
+  position:relative;width:172px;height:172px;transform-style:preserve-3d;
+  transform:rotateX(-18deg) rotateY(28deg);
+  transition:transform .55s cubic-bezier(.16,1,.3,1)
+}
+.obsidian-cube.dragging{transition:none}
+.obs-face{
+  position:absolute;inset:0;display:grid;place-items:center;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.028),transparent 32%),
+    linear-gradient(135deg,#171717,#080808 60%,#121212);
+  border:1px solid #353535;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.018),inset 0 0 34px rgba(0,0,0,.58);
+  backface-visibility:hidden
+}
+.obs-face:after{
+  content:"";position:absolute;inset:11px;border:1px solid rgba(210,210,210,.08);
+  pointer-events:none
+}
+.obs-front{transform:translateZ(86px)}
+.obs-back{transform:rotateY(180deg) translateZ(86px)}
+.obs-right{transform:rotateY(90deg) translateZ(86px)}
+.obs-left{transform:rotateY(-90deg) translateZ(86px)}
+.obs-top{transform:rotateX(90deg) translateZ(86px)}
+.obs-bottom{transform:rotateX(-90deg) translateZ(86px)}
+.obs-side-mark{
+  font:7px ui-monospace,monospace;letter-spacing:.18em;color:#444;
+  transform:translateZ(1px)
+}
+.cube-clue{width:78%;height:78%;display:grid;place-items:center;color:#bcbcbc}
+.cube-clue svg{width:72%;height:72%;stroke:currentColor;fill:none;stroke-width:2}
+.cube-clue.raven svg{fill:#b7b7b7;stroke:#b7b7b7}
+.cube-clue-label{
+  position:absolute;bottom:16px;font:7px ui-monospace,monospace;
+  letter-spacing:.18em;color:#777
+}
+.cube-opposite-letter{
+  font:400 74px Georgia,serif;color:#d9d9d9;
+  text-shadow:0 0 18px rgba(255,255,255,.08)
+}
+.cube-controls{
+  display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:0 auto 14px
+}
+.cube-controls button{
+  border:1px solid rgba(212,198,177,.16);border-radius:999px;
+  background:rgba(255,255,255,.02);color:#aaa19a;
+  min-width:88px;padding:10px 13px;font-size:7px;letter-spacing:.14em
+}
+.cube-readout{
+  display:flex;justify-content:center;gap:10px;align-items:center;
+  font:7px ui-monospace,monospace;letter-spacing:.16em;color:#756e67;margin-bottom:16px
+}
+.cube-readout b{font-weight:400;color:#c9c0b7}
+.cube-readout .sep{opacity:.32}
+.cube-form{margin-top:18px!important}
+@media(max-width:760px){
+  .cube-selector{grid-template-columns:repeat(2,1fr)}
+  .cube-viewport{height:280px}
+  .obsidian-cube{width:148px;height:148px}
+  .obs-front{transform:translateZ(74px)}.obs-back{transform:rotateY(180deg) translateZ(74px)}
+  .obs-right{transform:rotateY(90deg) translateZ(74px)}.obs-left{transform:rotateY(-90deg) translateZ(74px)}
+  .obs-top{transform:rotateX(90deg) translateZ(74px)}.obs-bottom{transform:rotateX(-90deg) translateZ(74px)}
+}
 </style>
 <style id="room-visual-v6">
 #room{display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:11px;padding:12px 22px 14px!important;background:radial-gradient(circle at 50% 42%,#151310 0,#080808 72%)!important}
@@ -767,13 +856,106 @@ function openMirror(){
   panel('REFLECTION / ROUTING','OBJECT 05',`<div class="route"><p>NOT DATES.</p><h3>ROUTES.</h3><div class="route-list"><span>02<i></i>10</span><span>04<i></i>11</span><span>09<i></i>24</span><span>25<i></i>00</span></div><small>PAPER ARCHIVES 25–26 HOLD THE EXTRACTION.</small></div>`,{dark:true})
 }
 function openCube(){
-  let active=S.mirror1;
-  let faces=active?[['◉','EYE'],['◆','RAVEN'],['▭','FRAME'],['◷','CLOCK']]:[['·','UNREADABLE'],['·','UNREADABLE'],['·','UNREADABLE'],['·','UNREADABLE']],idx=0;
-  let footer=S.four?'<button class="primary" id="openRecoveredMemories">OPEN RECOVERED MEMORY STACK</button>':`<form class="cube-form" id="cubeForm"><input id="cubeAnswer" placeholder="${active?'READ THE FOUR FACES':'OBJECT DORMANT'}"/><button>UNSEAL</button></form>`;
-  panel(S.four?'BLACK CUBE / RECOVERED':'BLACK CUBE','OBJECT 04',`<div class="cube-modal"><button class="cube-stage" id="spinCube"><div class="cube3d"><span id="faceGlyph">${faces[0][0]}</span></div></button><div class="face-log">FACE <span id="faceNum">1</span>/4 <b id="faceName">${faces[0][1]}</b></div><p>${active?'THE ORDER LIVES HERE.<br>THE LETTERS DO NOT.':'THE CUBE CAN BE ROTATED, BUT ITS SURFACE WILL NOT RESOLVE.'}</p>${footer}</div>`,{dark:true});
-  $('#spinCube').onclick=()=>{idx=(idx+1)%4;$('#faceGlyph').textContent=faces[idx][0];$('#faceNum').textContent=idx+1;$('#faceName').textContent=faces[idx][1]};
+  const active=S.mirror1;
+  const pairs=[
+    {name:'EYE',letter:'F',icon:'eye'},
+    {name:'RAVEN',letter:'O',icon:'raven'},
+    {name:'FRAME',letter:'U',icon:'frame'},
+    {name:'CLOCK',letter:'R',icon:'clock'}
+  ];
+  let idx=0,rx=-18,ry=28,flipped=false,drag=false,lastX=0,lastY=0;
+
+  const iconSVG=(type)=>{
+    if(!active)return '<div class="obs-side-mark">UNREADABLE</div>';
+    if(type==='eye')return '<div class="cube-clue eye"><svg viewBox="0 0 100 100"><path d="M10 50Q50 17 90 50Q50 83 10 50Z"/><circle cx="50" cy="50" r="15"/><circle cx="50" cy="50" r="5" fill="currentColor"/></svg><span class="cube-clue-label">EYE</span></div>';
+    if(type==='raven')return '<div class="cube-clue raven"><svg viewBox="0 0 100 100"><path d="M19 69C31 45 50 34 67 37c9-12 17-14 26-9-7 6-8 11-5 17 8 7 7 20-2 27-14 12-39 9-54 2L22 86l3-15Z"/><circle cx="75" cy="40" r="2.4" fill="#111"/></svg><span class="cube-clue-label">RAVEN</span></div>';
+    if(type==='frame')return '<div class="cube-clue frame"><svg viewBox="0 0 100 100"><rect x="20" y="15" width="60" height="70" rx="2"/><rect x="29" y="24" width="42" height="52" rx="1"/></svg><span class="cube-clue-label">FRAME</span></div>';
+    return '<div class="cube-clue clock"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="34"/><path d="M50 50V29M50 50L68 61"/><path d="M50 20v6M80 50h-6M50 80v-6M20 50h6"/></svg><span class="cube-clue-label">CLOCK</span></div>';
+  };
+
+  let footer=S.four
+    ? '<button class="primary" id="openRecoveredMemories">OPEN RECOVERED MEMORY STACK</button>'
+    : `<form class="cube-form" id="cubeForm"><input id="cubeAnswer" placeholder="${active?'READ THE OPPOSITE LETTERS':'OBJECT DORMANT'}"/><button>UNSEAL</button></form>`;
+
+  panel(S.four?'BLACK CUBE / RECOVERED':'BLACK CUBE','OBJECT 04',`
+    <div class="cube-modal">
+      <div class="cube-instruction">${active?'SELECT A CLUE · DRAG TO ROTATE · FLIP 180° TO SEE ITS OPPOSITE':'THE CUBE CAN BE INSPECTED, BUT ITS MARKINGS HAVE NOT RESOLVED'}</div>
+      <div class="cube-selector">
+        ${pairs.map((p,i)=>`<button class="${i===0?'active':''}" data-cube-pair="${i}">${p.name}</button>`).join('')}
+      </div>
+      <div class="cube-viewport" id="cubeViewport">
+        <div class="obsidian-cube" id="obsCube">
+          <div class="obs-face obs-front" id="obsFront"></div>
+          <div class="obs-face obs-back" id="obsBack"></div>
+          <div class="obs-face obs-right"><span class="obs-side-mark">04</span></div>
+          <div class="obs-face obs-left"><span class="obs-side-mark">ARCHIVE</span></div>
+          <div class="obs-face obs-top"><span class="obs-side-mark">AFTER 25:00</span></div>
+          <div class="obs-face obs-bottom"><span class="obs-side-mark">OBJECT</span></div>
+        </div>
+      </div>
+      <div class="cube-controls">
+        <button data-cube-act="left">ROTATE ◂</button>
+        <button data-cube-act="flip">FLIP 180°</button>
+        <button data-cube-act="right">ROTATE ▸</button>
+        <button data-cube-act="reset">RESET VIEW</button>
+      </div>
+      <div class="cube-readout">
+        <span>CLUE <b id="cubeClueName">EYE</b></span>
+        <span class="sep">/</span>
+        <span>OPPOSITE <b id="cubeOpposite">${active?'F':'?'}</b></span>
+      </div>
+      <p>${active?'THE IMAGE IS NOT THE LETTER.<br>TURN THE CUBE OVER.':'THE SURFACE IS PRESENT. THE RECORD IS NOT.'}</p>
+      ${footer}
+    </div>
+  `,{dark:true});
+
+  const cube=$('#obsCube'),viewport=$('#cubeViewport');
+
+  function draw(){
+    const p=pairs[idx];
+    $('#obsFront').innerHTML=iconSVG(p.icon);
+    $('#obsBack').innerHTML=active?`<div class="cube-opposite-letter">${p.letter}</div>`:'<div class="obs-side-mark">?</div>';
+    $('#cubeClueName').textContent=active?p.name:'UNREADABLE';
+    $('#cubeOpposite').textContent=active?p.letter:'?';
+    $$('[data-cube-pair]').forEach((x,i)=>x.classList.toggle('active',i===idx));
+    cube.style.transform=`rotateX(${rx}deg) rotateY(${ry+(flipped?180:0)}deg)`;
+  }
+  draw();
+
+  $('#panelBody').onclick=e=>{
+    const pick=e.target.closest('[data-cube-pair]');
+    if(pick){idx=+pick.dataset.cubePair;flipped=false;rx=-18;ry=28;draw();return}
+    const act=e.target.dataset.cubeAct;
+    if(act==='left'){ry-=90;draw()}
+    if(act==='right'){ry+=90;draw()}
+    if(act==='flip'){flipped=!flipped;draw()}
+    if(act==='reset'){rx=-18;ry=28;flipped=false;draw()}
+  };
+
+  viewport.onpointerdown=e=>{
+    drag=true;lastX=e.clientX;lastY=e.clientY;
+    cube.classList.add('dragging');
+    viewport.setPointerCapture?.(e.pointerId)
+  };
+  viewport.onpointermove=e=>{
+    if(!drag)return;
+    const dx=e.clientX-lastX,dy=e.clientY-lastY;
+    lastX=e.clientX;lastY=e.clientY;
+    ry+=dx*.6;rx-=dy*.45;rx=Math.max(-72,Math.min(72,rx));
+    draw()
+  };
+  const stop=e=>{drag=false;cube.classList.remove('dragging');try{viewport.releasePointerCapture?.(e.pointerId)}catch{}};
+  viewport.onpointerup=stop;viewport.onpointercancel=stop;
+  viewport.ondblclick=()=>{flipped=!flipped;draw()};
+
   let memBtn=$('#openRecoveredMemories');if(memBtn)memBtn.onclick=openMemories;
-  let form=$('#cubeForm');if(form)form.onsubmit=e=>{e.preventDefault();if(!active)return toast('OBJECT / DORMANT');if(norm($('#cubeAnswer').value)==='FOUR'){save({four:true});restoreFX('MEMORY STACK / RESTORED');toast('MEMORY STACK / RECOVERED');openMemories()}else toast('CUBE / UNREADABLE')}
+  let form=$('#cubeForm');if(form)form.onsubmit=e=>{
+    e.preventDefault();
+    if(!active)return toast('OBJECT / DORMANT');
+    if(norm($('#cubeAnswer').value)==='FOUR'){
+      save({four:true});restoreFX('MEMORY STACK / RESTORED');toast('MEMORY STACK / RECOVERED');openMemories()
+    }else toast('CUBE / UNREADABLE')
+  }
 }
 function openMemories(){let mem=[['02.10','TWO VOICES'],['04.11','LAUGHTER'],['09.24','EMPTY FRAME'],['25.00','CLOCK']];panel('RECOVERED MEMORY STACK','04 RECORDS',`<div class="memory-head">${S.collision?'03 SUBJECT RECORDS / 01 EXTERNAL':'ALL DATES ARE VALID. NOT ALL OWNERS ARE.'}</div>${mem.map((x,i)=>`<button class="memory-btn ${S.collision&&x[0]==='02.10'?'external':''}" data-date="${x[0]}"><span>0${i+1}</span><b>${x[0]}</b><em>${S.collision&&x[0]==='02.10'?'EXTERNAL / ♪ K':x[1]}</em></button>`).join('')}${S.collision?'<div class="reassign"><span>DATE / VALID</span><span>OWNER / INVALID</span><span>REASSIGNED / COMPLETE</span></div>':'<p class="note">PAPER ARCHIVES 21–22 IDENTIFY THE OWNER COLLISION.</p>'}`);$$('.memory-btn').forEach(b=>b.onclick=()=>{if(S.collision)return;if(b.dataset.date==='02.10')openCollision();else toast('OWNER / VERIFIED')})}
 function openCollision(){panel('02.10 / COLLISION','OWNER CHECK',`<div class="memory-head">SAME DATE. DIFFERENT OWNER.</div><button class="memory-btn" data-owner="subject"><span>01</span><b>♥</b><em>SUBJECT / 02.10</em></button><button class="memory-btn" data-owner="external"><span>02</span><b>♪</b><em>EXTERNAL / K / 02.10</em></button><p class="note">SELECT THE MISFILED OWNER. / PAPER ARCHIVE 22</p>`);$$('[data-owner]').forEach(b=>b.onclick=()=>{if(b.dataset.owner==='external'){save({collision:true,routes:true});restoreFX('MEMORY / REASSIGNED');toast('MEMORY / REASSIGNED');panel('CORRECTION LOG','02.10',`<div class="reassign"><span>DATE / VALID</span><span>OWNER / INVALID</span><span>ERROR / COLLISION</span><span>MEMORY / REASSIGNED</span></div><p class="note">KEEP THE NUMBER. CHANGE WHAT IT MEANS.<br>PAPER ARCHIVES 23–27 ARE NOW ACTIVE.</p>`)}else toast('THIS RECORD BELONGS TO THE SUBJECT')})}
