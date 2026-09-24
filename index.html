@@ -842,13 +842,61 @@
 #prompt{position:static!important;z-index:24!important;width:min(1320px,calc(100vw - 52px),calc((100vh - 182px)*1.7779))!important;display:grid!important;grid-template-columns:auto minmax(220px,1fr) minmax(280px,1.35fr) auto!important;align-items:center!important;gap:13px!important;padding:8px 12px!important;border:1px solid rgba(226,214,194,.11)!important;border-radius:13px!important;background:rgba(8,8,8,.68)!important;backdrop-filter:blur(10px);pointer-events:auto!important}
 #prompt .eyebrow{white-space:nowrap}#prompt h2{font:400 17px/1.05 Georgia,serif!important;margin:0!important;white-space:nowrap}#prompt p{font-size:8px!important;line-height:1.4!important;margin:0!important;max-width:none!important;color:#77716a!important}#prompt button{margin:0!important;white-space:nowrap!important}.progress{display:none!important}
 @media(max-width:760px){#room{padding:9px 9px 10px!important;gap:7px!important}.room-stage{width:min(calc(100vw - 18px),calc((100vh - 164px)*1.7779))!important;aspect-ratio:1672/941!important}#prompt{width:min(calc(100vw - 18px),calc((100vh - 164px)*1.7779))!important;grid-template-columns:1fr auto!important;gap:4px 9px!important;padding:7px 9px!important}#prompt .eyebrow{grid-column:1/2}#prompt h2{grid-column:1/2;font-size:13px!important;white-space:normal!important}#prompt p{display:none!important}#prompt button{grid-column:2/3;grid-row:1/3!important}}
+</style><style id="kanade-photo-v13">
+.kanade-photo{
+  display:block;
+  object-fit:contain;
+  object-position:center;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+.room-stage .frame .frame-art{
+  background:transparent!important;
+}
+.room-stage .frame .kanade-photo-mini{
+  width:100%;
+  height:100%;
+  opacity:0;
+  transform:scale(.96);
+  filter:blur(6px) saturate(.55) brightness(.82);
+  transition:opacity 1.25s ease,transform 1.25s ease,filter 1.25s ease;
+}
+.restored .room-stage .frame .kanade-photo-mini{
+  opacity:1!important;
+  transform:scale(1);
+  filter:saturate(.78) brightness(.9) contrast(1.04);
+}
+.final-portrait{
+  overflow:hidden;
+}
+.final-portrait:before{
+  background:
+    radial-gradient(circle at 50% 34%,rgba(135,164,190,.14),transparent 44%),
+    linear-gradient(180deg,rgba(255,255,255,.016),rgba(0,0,0,.16))!important;
+}
+.kanade-photo-full{
+  position:relative;
+  z-index:2;
+  width:min(520px,95%);
+  max-height:76vh;
+  margin:auto;
+  filter:drop-shadow(0 32px 48px rgba(0,0,0,.62));
+  animation:kanadePhotoReveal 1.45s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes kanadePhotoReveal{
+  from{opacity:0;transform:translateY(18px) scale(.965);filter:blur(9px) drop-shadow(0 32px 48px rgba(0,0,0,.25))}
+  to{opacity:1;transform:none;filter:blur(0) drop-shadow(0 32px 48px rgba(0,0,0,.62))}
+}
+@media(max-width:760px){
+  .kanade-photo-full{max-height:40vh;width:min(330px,92%)}
+}
 </style></head>
 <body>
 <div id="opening"><div class="curtain top"></div><div class="curtain bottom"></div><div class="opening-center"><div class="opening-meta"><span>MEMORY RESTORATION ARCHIVE</span><span>PRIVATE NODE / 09.24</span></div><div class="opening-rule"></div><div class="opening-mask"><h1 class="opening-title">AFTER 25:00</h1></div><div class="opening-count"><b id="counter">000</b><span>/100</span></div></div></div>
 <main id="gate"><div class="grid"></div><div class="gate-top"><span>MEMORY RESTORATION ARCHIVE</span><span>NODE 09.24 / OFFLINE</span></div><section class="gate-content"><div class="gate-index">ACCESS / 00</div><h1 class="gate-title"><span>IDENTIFY</span><span>THE MISSING</span><span>OBJECT.</span></h1><form class="gate-form" id="gateForm"><label>OBJECT NAME</label><div class="gate-control"><input id="gateInput" autocomplete="off" placeholder="_ _ _ _ _ _"/><button>RESTORE ↗</button></div><p class="gate-error" id="gateError">OBJECT NOT RECOGNIZED.</p></form></section><div class="gate-footer"><span>THE PAPER ENDS HERE.</span><span>THE ROOM DOES NOT.</span></div></main>
 <main id="archive" class="hidden"><header class="hud"><div class="hud-left"><b>AFTER 25:00</b><span>CASE 09.24</span></div><div class="hud-status"><i id="statusDot"></i><span id="statusText">ARCHIVE ONLINE</span></div><button id="reset">RESET</button></header><section id="room"><div class="room-stage"><div class="wall left"></div><div class="wall right"></div><div class="floor"></div><div class="ceiling-line"></div>
 <button class="obj window" data-obj="window" aria-label="WINDOW"><span class="moon"></span><span class="tag">WINDOW</span></button>
-<button class="obj frame" data-obj="frame" aria-label="FRAME"><div class="frame-art"><svg class="kanade-mini" viewBox="0 0 260 330" aria-hidden="true"><defs><linearGradient id="kh" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#edf3f6"/><stop offset=".56" stop-color="#b9cad6"/><stop offset="1" stop-color="#758493"/></linearGradient><linearGradient id="kc" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#26303b"/><stop offset="1" stop-color="#0d1117"/></linearGradient></defs><ellipse cx="130" cy="170" rx="91" ry="138" fill="#11151b" opacity=".88"/><path d="M67 281C39 202 48 75 126 45c81 17 93 123 75 238-18 27-45 40-72 40-27 0-48-12-62-42Z" fill="url(#kh)"/><path d="M88 120c9-43 35-64 65-61 31 2 53 31 48 69-5 45-27 82-60 84-35 2-62-39-53-92Z" fill="#eadfda"/><path d="M70 112c17-52 59-74 91-53 25 17 37 48 30 77-15-31-37-42-65-39-22 2-39 8-56 15Z" fill="url(#kh)"/><path d="M128 56c3 45-14 86-23 112 19-18 32-42 42-75 9 25 12 49 11 72 13-23 22-52 18-80-16-20-31-29-48-29Z" fill="#dfe9ee"/><path d="M104 143q12 7 23 0M151 143q11 7 22 0" stroke="#577d9c" stroke-width="4" stroke-linecap="round"/><circle cx="116" cy="144" r="4.4" fill="#8fc8ee"/><circle cx="162" cy="144" r="4.4" fill="#8fc8ee"/><path d="M133 173q8 5 15 0" fill="none" stroke="#9f7f7a" stroke-width="2.3" stroke-linecap="round"/><path d="M71 302c18-54 52-76 73-76 30 0 61 31 74 80l-26 18H91Z" fill="url(#kc)"/><path d="M93 244c18 20 52 22 75-1" fill="none" stroke="#8998a7" stroke-width="4" opacity=".55"/><path d="M62 123c-13 65 0 154 15 190M199 115c18 68 7 147-3 190" fill="none" stroke="#c9d8e1" stroke-width="14" stroke-linecap="round" opacity=".9"/></svg></div><span class="tag">FRAME</span></button>
+<button class="obj frame" data-obj="frame" aria-label="FRAME"><div class="frame-art"><img class="kanade-photo kanade-photo-mini" src="assets/kanade_portrait.webp" alt="Recovered portrait"></div><span class="tag">FRAME</span></button>
 <button class="obj clock" data-obj="clock" aria-label="CLOCK"><div class="clock-face"><i class="hand hour" id="roomHour"></i><i class="hand minute" id="roomMinute"></i><span class="pin"></span><b class="n12">12</b><b class="n3">3</b><b class="n6">6</b><b class="n9">9</b></div><span class="tag">CLOCK</span></button>
 <button class="obj mirror" data-obj="mirror" aria-label="MIRROR"><div class="mirror-glass"><i></i><i></i><i></i></div><span class="tag">MIRROR</span></button>
 <button class="obj raven" data-obj="raven" aria-label="RAVEN"><svg viewBox="0 0 160 120"><path d="M27 79C45 48 69 34 98 39c11-16 24-20 37-14-8 8-10 15-6 23 13 11 13 29-1 40-19 16-55 12-77 3L35 108l4-21z"/><circle cx="112" cy="43" r="2.5" fill="#cfc8bf"/></svg><span class="tag">RAVEN</span></button>
@@ -1115,8 +1163,7 @@ function openCube(){
 }
 function openMemories(){let mem=[['02.10','TWO VOICES'],['04.11','LAUGHTER'],['09.24','EMPTY FRAME'],['25.00','CLOCK']];panel('RECOVERED MEMORY STACK','04 RECORDS',`<div class="memory-head">${S.collision?'03 SUBJECT RECORDS / 01 EXTERNAL':'ALL DATES ARE VALID. NOT ALL OWNERS ARE.'}</div>${mem.map((x,i)=>`<button class="memory-btn ${S.collision&&x[0]==='02.10'?'external':''}" data-date="${x[0]}"><span>0${i+1}</span><b>${x[0]}</b><em>${S.collision&&x[0]==='02.10'?'EXTERNAL / ♪ K':x[1]}</em></button>`).join('')}${S.collision?'<div class="reassign"><span>DATE / VALID</span><span>OWNER / INVALID</span><span>REASSIGNED / COMPLETE</span></div>':'<p class="note">PAPER ARCHIVES 21–22 IDENTIFY THE OWNER COLLISION.</p>'}`);$$('.memory-btn').forEach(b=>b.onclick=()=>{if(S.collision)return;if(b.dataset.date==='02.10')openCollision();else toast('OWNER / VERIFIED')})}
 function openCollision(){panel('02.10 / COLLISION','OWNER CHECK',`<div class="memory-head">SAME DATE. DIFFERENT OWNER.</div><button class="memory-btn" data-owner="subject"><span>01</span><b>♥</b><em>SUBJECT / 02.10</em></button><button class="memory-btn" data-owner="external"><span>02</span><b>♪</b><em>EXTERNAL / K / 02.10</em></button><p class="note">SELECT THE MISFILED OWNER. / PAPER ARCHIVE 22</p>`);$$('[data-owner]').forEach(b=>b.onclick=()=>{if(b.dataset.owner==='external'){save({collision:true,routes:true});restoreFX('MEMORY / REASSIGNED');toast('MEMORY / REASSIGNED');panel('CORRECTION LOG','02.10',`<div class="reassign"><span>DATE / VALID</span><span>OWNER / INVALID</span><span>ERROR / COLLISION</span><span>MEMORY / REASSIGNED</span></div><p class="note">KEEP THE NUMBER. CHANGE WHAT IT MEANS.<br>PAPER ARCHIVES 23–27 ARE NOW ACTIVE.</p>`)}else toast('THIS RECORD BELONGS TO THE SUBJECT')})}
-function kanadePortraitSVG(){return `<svg class="kanade-portrait" viewBox="0 0 620 820" role="img" aria-label="Recovered portrait of Yoisaki Kanade"><defs><linearGradient id="hair" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f4f7f8"/><stop offset=".42" stop-color="#c8d7df"/><stop offset=".72" stop-color="#9dafbd"/><stop offset="1" stop-color="#657482"/></linearGradient><linearGradient id="hairShade" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#dbe5ea"/><stop offset="1" stop-color="#80909d"/></linearGradient><linearGradient id="hood" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#2a3440"/><stop offset=".55" stop-color="#151b23"/><stop offset="1" stop-color="#090c11"/></linearGradient><radialGradient id="halo"><stop stop-color="#a6c2d6" stop-opacity=".18"/><stop offset="1" stop-color="#0b0d11" stop-opacity="0"/></radialGradient></defs><ellipse cx="310" cy="380" rx="250" ry="330" fill="url(#halo)"/><path d="M155 704C117 578 108 342 159 189 186 107 244 61 310 58c73 4 134 58 158 143 42 148 33 384-8 511-38 64-98 92-151 92-57 0-115-28-154-100Z" fill="url(#hair)" opacity=".97"/><path d="M216 257c4-101 48-151 101-151 57 0 101 57 99 158-1 111-43 208-105 211-66 4-104-103-95-218Z" fill="#eadfdb"/><path d="M175 254c26-115 101-176 164-143 54 29 90 102 72 183-24-66-76-91-127-76-40 11-75 28-109 36Z" fill="url(#hairShade)"/><path d="M297 100c11 95-25 174-53 235 47-44 77-112 91-189 25 65 28 127 17 184 31-53 54-126 40-187-27-28-58-42-95-43Z" fill="#e5eef2"/><path d="M200 254c-33 116-11 327 20 443M424 245c39 119 18 330-15 460" fill="none" stroke="#c9d8e1" stroke-width="42" stroke-linecap="round" opacity=".92"/><path d="M252 316q22 13 43 0M340 316q21 13 42 0" stroke="#52799a" stroke-width="7" stroke-linecap="round"/><ellipse cx="274" cy="319" rx="9" ry="11" fill="#8dccf3"/><ellipse cx="361" cy="319" rx="9" ry="11" fill="#8dccf3"/><circle cx="277" cy="315" r="2.8" fill="#e7f6ff"/><circle cx="364" cy="315" r="2.8" fill="#e7f6ff"/><path d="M307 364q12 8 26 0" fill="none" stroke="#9a7774" stroke-width="4" stroke-linecap="round"/><path d="M191 781c22-129 81-226 126-226 55 0 123 112 139 226Z" fill="url(#hood)"/><path d="M215 623c30 37 67 54 103 54 40 0 77-19 105-57" fill="none" stroke="#738493" stroke-width="10" opacity=".65"/><path d="M185 660c38-57 76-83 121-95M448 662c-41-60-83-86-126-98" fill="none" stroke="#3c4855" stroke-width="18" stroke-linecap="round"/><path d="M126 783c22-118 57-173 110-194M496 783c-24-119-61-177-112-197" fill="none" stroke="#1f2832" stroke-width="62" stroke-linecap="round"/></svg>`}
-function openFinal(){panel('RESTORATION','CASE 09.24',`<div class="final"><div class="final-portrait">${kanadePortraitSVG()}</div><div class="final-copy"><small>RESTORATION / 100%</small><h2>THE PORTRAIT<br>HAS RETURNED.</h2><p>CASE 09.24 / CLOSED</p><div id="claimArea">${S.claimed?ticketHTML():'<button class="claim" id="claim">CLAIM ARCHIVE ITEM 0924</button>'}</div></div></div>`,{dark:true,full:true});let c=$('#claim');if(c)c.onclick=()=>{save({claimed:true});restoreFX('ARCHIVE ITEM / CLAIMABLE');$('#claimArea').innerHTML=ticketHTML()}}
+function openFinal(){panel('RESTORATION','CASE 09.24',`<div class="final"><div class="final-portrait"><img class="kanade-photo kanade-photo-full" src="assets/kanade_portrait.webp" alt="Recovered portrait"></div><div class="final-copy"><small>RESTORATION / 100%</small><h2>THE PORTRAIT<br>HAS RETURNED.</h2><p>CASE 09.24 / CLOSED</p><div id="claimArea">${S.claimed?ticketHTML():'<button class="claim" id="claim">CLAIM ARCHIVE ITEM 0924</button>'}</div></div></div>`,{dark:true,full:true});let c=$('#claim');if(c)c.onclick=()=>{save({claimed:true});restoreFX('ARCHIVE ITEM / CLAIMABLE');$('#claimArea').innerHTML=ticketHTML()}}
 function ticketHTML(){return '<div class="ticket"><span>ARCHIVE ITEM / 0924</span><b>CLAIMABLE</b><p>PRESENT THIS SCREEN TO THE ARCHIVIST.</p></div>'}
 
 function openWindow(){panel('WINDOW','OBJECT 01',`<div class="evidence-view"><div class="evidence-hero"><div class="evidence-symbol">☾</div></div><div class="evidence-copy"><small>VISUAL CHECK / WINDOW</small><h3>${S.judgement?'THE MOON IS WRONG.':'SEALED WINDOW'}</h3><p>${S.judgement?'THE LIGHT NO LONGER MATCHES THE ORIGINAL ROOM RECORD.':'NO MECHANICAL RESPONSE. MOONLIGHT ENTERS FROM THE LEFT.'}</p></div></div>`,{dark:true})}
